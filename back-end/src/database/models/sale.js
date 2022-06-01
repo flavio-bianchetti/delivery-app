@@ -24,10 +24,24 @@ const Sales = (sequelize, DataTypes) =>
     underscore: true,
   });
 
-  Sales.belongsTo(Users, { foreignKey: 'userId', as: 'fkUserId' });
-  Sales.belongsTo(Users, { foreignKey: 'sellerId', as: 'fkSellerId' });
-  
-  Users.hasMany(Sales, { foreignKey: 'idUser', as: 'fkIdUser' });
-  Users.hasMany(Sales, { foreignKey: 'idSeller', as: 'fkIDSeller' });
+  Sales.associate = (models) => {
+    Sales.belongsTo(models.Users, {
+      foreignKey: 'userId',
+      as: 'fkUserId'
+    });
+    Sales.belongsTo(models.Users, {
+      foreignKey: 'sellerId',
+      as: 'fkSellerId'
+    });
+    
+    models.Users.hasMany(Sales, {
+      foreignKey: 'idUser',
+      as: 'fkIdUser'
+    });
+    models.Users.hasMany(Sales, {
+      foreignKey: 'idSeller',
+      as: 'fkIDSeller'
+    });
+  }
 
 module.exports = Sales;
