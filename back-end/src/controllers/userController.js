@@ -1,5 +1,5 @@
 // require('dotenv').config();
-const express = require('express');
+// const express = require('express');
 const UserService = require('../services/userService');
 // const validateJWTMiddleware = require('../middlewares/validateJWTMiddleware');
 
@@ -35,7 +35,7 @@ const login = async (req, res) => {
     console.error(error);
     return res.status(500).json({ error });
   }
-}
+};
 
 // const getAll = (req, res) => {
 //   try {
