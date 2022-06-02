@@ -48,7 +48,7 @@ const create = async ({ name, email, password, role }) => {
 //   }
 // };
 
-const login = async (email, password) => {
+const login = async (email, _password) => {
   try {
     const user = await User.findOne({ where: { email } });
     if (!user) return false;
