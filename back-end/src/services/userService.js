@@ -1,3 +1,4 @@
+const md5 = require('md5');
 const { User } = require('../database/models');
 const tokenGenerator = require('../utils/auth/tokenGenerator');
 // const { validateUserSchema } = require('../util/validateSchema');
@@ -43,12 +44,16 @@ const create = async ({ name, email, password, role }) => {
 //   }
 // };
 
-const login = async (email, _password) => {
+const login = async (email, password) => {
   const user = await User.findOne({ where: { email } });
   if (!user) return false;
-  // validar o password - bcrypt
-  // const user = await User.findByPk(Number(id));
+
+  if (md5(password) !== user.password) {
+    return { code: 404, message: 'Incorrect password' };
+  }
+
   const { name, role } = user;
+  
   return {
     name,
     email,
