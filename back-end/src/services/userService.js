@@ -3,29 +3,24 @@ const tokenGenerator = require('../utils/auth/tokenGenerator');
 // const { validateUserSchema } = require('../util/validateSchema');
 
 const create = async ({ name, email, password, role }) => {
-  try {
-    // const { error } = validateUserSchema.validate({ displayName, email, password, image });
+  // const { error } = validateUserSchema.validate({ displayName, email, password, image });
 
-    // if (error) return { status: 400, message: error.details[0].message };
+  // if (error) return { status: 400, message: error.details[0].message };
 
-    const user = await User.findOne({ where: { email } || { name } });
-    if (user.length) return false;
+  const user = await User.findOne({ where: { email } || { name } });
+  if (user.length) return false;
 
-    const createdUser = await User.create({ name, email, password, role });
+  const createdUser = await User.create({ name, email, password, role });
 
-    return {
-      user: {
-        id: createdUser.id,
-        name,
-        email,
-        role,
-      },
-      token: tokenGenerator({ name, email, role }),
-    };
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
+  return {
+    user: {
+      id: createdUser.id,
+      name,
+      email,
+      role,
+    },
+    token: tokenGenerator({ name, email, role }),
+  };
 };
 
 // const getAll = async () => {
@@ -49,22 +44,17 @@ const create = async ({ name, email, password, role }) => {
 // };
 
 const login = async (email, _password) => {
-  try {
-    const user = await User.findOne({ where: { email } });
-    if (!user) return false;
-    // validar o password - bcrypt
-    // const user = await User.findByPk(Number(id));
-    const { name, role } = user;
-    return {
-      name,
-      email,
-      role,
-      token: tokenGenerator({ name, email, role }),
-    };
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
+  const user = await User.findOne({ where: { email } });
+  if (!user) return false;
+  // validar o password - bcrypt
+  // const user = await User.findByPk(Number(id));
+  const { name, role } = user;
+  return {
+    name,
+    email,
+    role,
+    token: tokenGenerator({ name, email, role }),
+  };
 };
 
 // const exclude = async (id) => {
