@@ -1,13 +1,14 @@
 const { Router } = require('express');
 const cors = require('cors');
 const UserController = require('../controllers/userController');
+const { registerValidations } = require('../middlewares');
 // import { ValidateJWTMiddleware, ValidateRoutesEntries } from '../middlewares';
 
 const routes = Router();
 
 routes.use(cors());
 
-routes.post('/', UserController.create);
+routes.post('/', registerValidations, UserController.create);
 
 // routes.post(
 //   '/create',

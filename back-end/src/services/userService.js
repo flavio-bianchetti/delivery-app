@@ -1,16 +1,15 @@
+const { Op } = require('sequelize');
+const { generate } = require('../utils/cryptString');
 const { User } = require('../database/models');
 const tokenGenerator = require('../utils/auth/tokenGenerator');
 // const { validateUserSchema } = require('../util/validateSchema');
 
 const create = async ({ name, email, password, role }) => {
-  // const { error } = validateUserSchema.validate({ displayName, email, password, image });
+  const user = await User.findOne({ where: { [Op.or]: [{ email }, { name }] } });
+  if (user) return false;
 
-  // if (error) return { status: 400, message: error.details[0].message };
-
-  const user = await User.findOne({ where: { email } || { name } });
-  if (user.length) return false;
-
-  const createdUser = await User.create({ name, email, password, role });
+  const hashedPassword = generate(password); 
+  const createdUser = await User.create({ name, email, password: hashedPassword, role });
 
   return {
     user: {
