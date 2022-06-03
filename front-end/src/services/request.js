@@ -42,9 +42,9 @@ const deleteData = async (token, endpoint) => {
   return data;
 };
 
-module.exports = api;
+export default api;
 
-module.exports = {
+export {
   setToken,
   requestLogin,
   requestData,
