@@ -37,7 +37,7 @@ const Login = () => {
         .then((response) => {
           const { name, email, role, token } = response;
           saveUserInfoLocalStorage(name, email, role, token);
-          navigate('/products');
+          navigate('/customer/products');
         }).catch((err) => {
           console.error(err);
           setIsInvalidLogin(true);
@@ -52,7 +52,7 @@ const Login = () => {
         <Label
           className="label-email"
           htmlFor="email"
-          datatestid="common_login_label-email"
+          datatestid="common_login__label-email"
           label="E-mail"
         />
         <Input
@@ -61,13 +61,13 @@ const Login = () => {
           id="email"
           value={ userEmail }
           onChange={ handleSubmit }
-          datatestid="common_login_input-email"
+          datatestid="common_login__input-email"
           placeholder="Username"
         />
         <Label
           className="label"
           htmlFor="password"
-          datatestid="common_login_label-password"
+          datatestid="common_login__label-password"
           label="Password"
         />
         <Input
@@ -76,23 +76,24 @@ const Login = () => {
           id="password"
           value={ userPassword }
           onChange={ handleSubmit }
-          datatestid="common_login_input-password"
+          datatestid="common_login__input-password"
           placeholder="Password"
         />
         {
           isInvalidLogin
-          &&
+          && (
             <p
-              className="common_login__element-invalid-email"
+              data-testid="common_login__element-invalid-email"
             >
               Usuário ou senha inválidos.
             </p>
+          )
         }
         <Button
           className="btn btn-primary"
           type="submit"
           onClick={ login }
-          datatestid="common_login_button-login"
+          datatestid="common_login__button-login"
           label="Login"
           disabled={ !(ValidateEmail(userEmail) && ValidatePassword(userPassword)) }
         />
@@ -100,7 +101,7 @@ const Login = () => {
           className="btn btn-secondary"
           type="button"
           onClick={ () => console.log('Register') }
-          datatestid="common_login_button-register"
+          datatestid="common_login__button-register"
           label="Cancel"
           disabled={ false }
         />
