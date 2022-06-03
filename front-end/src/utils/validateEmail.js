@@ -1,7 +1,6 @@
 const ValidateEmail = (email) => {
-  // adaptado do site:
-  // https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
-  const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@([a-zA-Z0-9-]+)\.([a-zA-Z]{2,5})+(?:\.[a-zA-Z]{2,5})*$/;
+  // regex demonstrado pelo professor Zambelli:
+  const regex = /.+@.+\..+/;
   if (email.length > 0 && regex.test(email)) {
     return true;
   }
