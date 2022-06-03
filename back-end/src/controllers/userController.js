@@ -22,7 +22,9 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const result = await UserService.login(email, password);
 
-  if (!result) return res.status(401).json({ message: 'Invalid email or password' });
+  if (!result) return res.status(404).json({ message: 'Not Found' });
+
+  if (result.code) return res.status(result.code).json({ message: result.message });
 
   return res.status(200).json(result);
 };
