@@ -1,6 +1,6 @@
 const md5 = require('md5');
+const crypto = require('crypto');
 const { Op } = require('sequelize');
-const { generate } = require('../utils/cryptString');
 const { User } = require('../database/models');
 const tokenGenerator = require('../utils/auth/tokenGenerator');
 // const { validateUserSchema } = require('../util/validateSchema');
@@ -9,7 +9,7 @@ const create = async ({ name, email, password, role }) => {
   const user = await User.findOne({ where: { [Op.or]: [{ email }, { name }] } });
   if (user) return false;
 
-  const hashedPassword = generate(password); 
+  const hashedPassword = crypto.createHash('md5').update(password).digest('hex'); 
   const createdUser = await User.create({ name, email, password: hashedPassword, role });
 
   return {
