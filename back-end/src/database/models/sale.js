@@ -1,19 +1,35 @@
-const Users = require('./user');
+const User = require('./user');
 
 const Sales = (sequelize, DataTypes) => 
-  sequelize.define('Sale', {
+  sequelize.define('Sales', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    userId: DataTypes.INTEGER,
-    sellerId: DataTypes.INTEGER,
-    totalPrice: DataTypes.DECIMAL(9,2),
-    deliveryAddress: DataTypes.STRING,
-    deliveryNumber: DataTypes.STRING,
+    userId: {
+      type: DataTypes.INTEGER,
+      field: 'user_id'
+    },
+    sellerId: {
+      type: DataTypes.INTEGER,
+      field: 'seller_id'
+    },
+    totalPrice: {
+      type: DataTypes.DECIMAL(9,2),
+      field: 'total_price'
+    },
+    deliveryAddress: {
+      type: DataTypes.STRING,
+      field: 'delivery_address'
+    },
+    deliveryNumber: {
+      type: DataTypes.STRING,
+      field: 'delivery_number'
+    },
     saleDate: {
       type: DataTypes.DATE,
+      field: 'sale_date',
       defaultValue: DataTypes.NOW,
     },
     status: DataTypes.STRING,
@@ -25,20 +41,20 @@ const Sales = (sequelize, DataTypes) =>
   });
 
   Sales.associate = (models) => {
-    Sales.belongsTo(models.Users, {
+    Sales.belongsTo(models.User, {
       foreignKey: 'userId',
       as: 'fkUserId'
     });
-    Sales.belongsTo(models.Users, {
+    Sales.belongsTo(models.User, {
       foreignKey: 'sellerId',
       as: 'fkSellerId'
     });
     
-    models.Users.hasMany(Sales, {
+    models.User.hasMany(Sales, {
       foreignKey: 'idUser',
       as: 'fkIdUser'
     });
-    models.Users.hasMany(Sales, {
+    models.User.hasMany(Sales, {
       foreignKey: 'idSeller',
       as: 'fkIDSeller'
     });
