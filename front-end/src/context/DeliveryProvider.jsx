@@ -15,6 +15,15 @@ const DeliveryProvider = ({ children }) => {
     localStorage.setItem('user.delivery', JSON.stringify({ name, email, role, token }));
   };
 
+  const logout = () => {
+    setUserEmail('');
+    setUserPassword('');
+    setUserName('');
+    setUserRole('');
+    setUserToken('');
+    localStorage.removeItem('user.delivery');
+  };
+
   const listDeliveryProvider = {
     userEmail,
     setUserEmail,
@@ -25,6 +34,7 @@ const DeliveryProvider = ({ children }) => {
     saveUserInfoLocalStorage,
     userRole,
     userToken,
+    logout,
   };
 
   return (
