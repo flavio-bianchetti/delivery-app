@@ -25,6 +25,15 @@ const DeliveryProvider = ({ children }) => {
     localStorage.removeItem('user.delivery');
   };
 
+  const logout = () => {
+    setUserEmail('');
+    setUserPassword('');
+    setUserName('');
+    setUserRole('');
+    setUserToken('');
+    localStorage.removeItem('user.delivery');
+  };
+
   const listDeliveryProvider = {
     userEmail,
     setUserEmail,
