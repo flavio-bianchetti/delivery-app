@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import Button from './Button';
@@ -10,21 +10,6 @@ const Navbar = () => {
     logout,
   } = useContext(DeliveryContext);
 
-  const handleClick = (event) => {
-    event.preventDefault();
-    const { label } = event.target;
-    if (label === 'Produtos') {
-      navigate('/customer/products');
-    }
-    if (label === 'Meus Pedidos') {
-      navigate('/customer/orders');
-    }
-    if (label === 'Produtos') {
-      logout();
-      navigate('/login');
-    }
-  };
-
   return (
     <section
       className="navbar"
@@ -32,7 +17,7 @@ const Navbar = () => {
       <Button
         className="navbar__btn-products"
         type="button"
-        onClick={ handleClick }
+        onClick={ () => navigate('/customer/products') }
         datatestid="customer_products__element-navbar-link-products"
         label="Produtos"
         disabled={ false }
@@ -40,7 +25,7 @@ const Navbar = () => {
       <Button
         className="navbar__btn-orders"
         type="button"
-        onClick={ handleClick }
+        onClick={ () => navigate('/customer/orders') }
         datatestid="customer_products__element-navbar-link-orders"
         label="Meus Pedidos"
         disabled={ false }
@@ -54,7 +39,10 @@ const Navbar = () => {
       <Button
         className="navbar__btn-logout"
         type="button"
-        onClick={ handleClick }
+        onClick={ () => {
+          logout();
+          navigate('/login');
+        } }
         datatestid="customer_products__element-navbar-link-logout"
         label="Sair"
         disabled={ false }
