@@ -19,7 +19,7 @@ const Login = () => {
     saveUserInfoLocalStorage,
   } = React.useContext(DeliveryContext);
 
-  const handleSubmit = (event) => {
+  const handleChange = (event) => {
     event.preventDefault();
     setIsInvalidLogin(false);
     const { id, value } = event.target;
@@ -47,50 +47,44 @@ const Login = () => {
 
   return (
     <section>
-      <h1>Login</h1>
+      <h1
+        className="form"
+      >
+        Login
+      </h1>
       <form>
         <Label
-          className="label-email"
+          className="form__label"
           htmlFor="email"
           datatestid="common_login__label-email"
           label="E-mail"
         />
         <Input
-          className="form-control"
+          className="form__input"
           type="text"
           id="email"
           value={ userEmail }
-          onChange={ handleSubmit }
+          onChange={ handleChange }
           datatestid="common_login__input-email"
-          placeholder="Username"
+          placeholder="E-mail"
         />
         <Label
-          className="label"
+          className="form__label"
           htmlFor="password"
           datatestid="common_login__label-password"
-          label="Password"
+          label="Senha"
         />
         <Input
-          className="form-control"
+          className="form__input"
           type="password"
           id="password"
           value={ userPassword }
-          onChange={ handleSubmit }
+          onChange={ handleChange }
           datatestid="common_login__input-password"
-          placeholder="Password"
+          placeholder="digite sua senha"
         />
-        {
-          isInvalidLogin
-          && (
-            <p
-              data-testid="common_login__element-invalid-email"
-            >
-              Usuário ou senha inválidos.
-            </p>
-          )
-        }
         <Button
-          className="btn btn-primary"
+          className="form__btn-submit"
           type="submit"
           onClick={ login }
           datatestid="common_login__button-login"
@@ -98,14 +92,25 @@ const Login = () => {
           disabled={ !(ValidateEmail(userEmail) && ValidatePassword(userPassword)) }
         />
         <Button
-          className="btn btn-secondary"
+          className="form__btn-button"
           type="button"
-          onClick={ () => console.log('Register') }
+          onClick={ () => navigate('/register') }
           datatestid="common_login__button-register"
-          label="Cancel"
+          label="Ainda não tenho conta"
           disabled={ false }
         />
       </form>
+      {
+        isInvalidLogin
+        && (
+          <p
+            className="form__warning"
+            data-testid="common_login__element-invalid-email"
+          >
+            Usuário ou senha inválidos.
+          </p>
+        )
+      }
     </section>
   );
 };
