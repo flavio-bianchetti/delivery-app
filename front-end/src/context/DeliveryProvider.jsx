@@ -8,11 +8,21 @@ const DeliveryProvider = ({ children }) => {
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
   const [userToken, setUserToken] = useState('');
+  const [productsList, setProductsList] = useState([]);
 
   const saveUserInfoLocalStorage = (name, email, role, token) => {
     setUserRole(role);
     setUserToken(token);
-    localStorage.setItem('user.delivery', JSON.stringify({ name, email, role, token }));
+    localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
+  };
+
+  const logout = () => {
+    setUserEmail('');
+    setUserPassword('');
+    setUserName('');
+    setUserRole('');
+    setUserToken('');
+    localStorage.removeItem('user.delivery');
   };
 
   const logout = () => {
@@ -35,6 +45,8 @@ const DeliveryProvider = ({ children }) => {
     userRole,
     userToken,
     logout,
+    productsList,
+    setProductsList,
   };
 
   return (
