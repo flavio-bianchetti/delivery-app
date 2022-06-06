@@ -5,6 +5,7 @@ import DeliveryContext from './DeliveryContext';
 const DeliveryProvider = ({ children }) => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
   const [userToken, setUserToken] = useState('');
 
@@ -19,6 +20,8 @@ const DeliveryProvider = ({ children }) => {
     setUserEmail,
     userPassword,
     setUserPassword,
+    userName,
+    setUserName,
     saveUserInfoLocalStorage,
     userRole,
     userToken,
