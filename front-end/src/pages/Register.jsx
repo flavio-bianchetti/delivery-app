@@ -10,7 +10,6 @@ import { requestLogin } from '../services/request';
 const Register = () => {
   const navigate = useNavigate();
   const [isInvalidRegister, setIsInvalidRegister] = useState(false);
-  const [isValidRegister, setIsValidRegister] = useState(false);
 
   const {
     userEmail,
@@ -25,7 +24,6 @@ const Register = () => {
   const handleChange = (event) => {
     event.preventDefault();
     setIsInvalidRegister(false);
-    setIsValidRegister(false);
     const { id, value } = event.target;
     if (id === 'email') {
       setUserEmail(value);
@@ -50,15 +48,14 @@ const Register = () => {
         password: userPassword,
         role: 'customer',
       }).then((response) => {
-        const { name, email, role, token } = response.user;
-        saveUserInfoLocalStorage(name, email, role, token);
-        navigate('/customer/products');
-        if (name === userName && email === userEmail) {
-          setIsValidRegister(true);
-          setIsInvalidRegister(false);
-        } else {
+        const { name, email, role } = response.user;
+        const { token } = response;
+        if (name !== userName || email !== userEmail) {
           setIsInvalidRegister(true);
-          setIsValidRegister(false);
+        } else {
+          console.log(name, email, role, token);
+          saveUserInfoLocalStorage(name, email, role, token);
+          navigate('/customer/products');
         }
       }).catch((err) => {
         console.log(err);
@@ -138,18 +135,7 @@ const Register = () => {
             className="form__warning"
             data-testid="common_register__element-invalid_register"
           >
-            Usuário ou senha inválidos.
-          </p>
-        )
-      }
-      {
-        isValidRegister
-        && (
-          <p
-            className="form__warning"
-            data-testid="common_register__element-valid_register"
-          >
-            Usuário cadastrado com sucesso!
+            Usuário já cadastrado.
           </p>
         )
       }
