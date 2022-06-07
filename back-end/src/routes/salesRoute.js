@@ -7,6 +7,7 @@ const routes = Router();
 routes.use(cors());
 
 routes.get('/', SaleController.getAll);
+routes.post('/', SaleController.create);
 routes.get('/:id', SaleController.getById);
 routes.put('/:id', SaleController.updateStatus);
 
