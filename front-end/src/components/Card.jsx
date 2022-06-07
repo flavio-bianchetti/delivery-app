@@ -34,6 +34,7 @@ const Card = ({
     </h4>
     <Button
       className="navbar__btn-decrement"
+      id={ `${id}` }
       type="button"
       onClick={ onClick }
       datatestid={ `customer_products__button-card-rm-item-${id}` }
@@ -49,6 +50,7 @@ const Card = ({
     />
     <Button
       className="navbar__btn-increment"
+      id={ `${id}` }
       type="button"
       onClick={ onClick }
       datatestid={ `customer_products__button-card-add-item-${id}` }
