@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DeliveryContext from './DeliveryContext';
 
 const DeliveryProvider = ({ children }) => {
@@ -24,6 +24,11 @@ const DeliveryProvider = ({ children }) => {
     setUserToken('');
     localStorage.removeItem('user');
   };
+
+  useEffect(() => {
+    const cart = productsList.filter((product) => product.quantity > 0);
+    localStorage.setItem('carrinho', JSON.stringify(cart));
+  }, [productsList]);
 
   const listDeliveryProvider = {
     userEmail,
