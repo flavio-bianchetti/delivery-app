@@ -46,7 +46,7 @@ const Card = ({
       type="number"
       value={ quantity }
       onChange={ () => true } // alterar aqui para decrementar quantidade
-      data-testid={ `customer_products__input-card-quantity-${id}` }
+      datatestid={ `customer_products__input-card-quantity-${id}` }
     />
     <Button
       className="navbar__btn-increment"
