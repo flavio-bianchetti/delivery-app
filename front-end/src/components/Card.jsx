@@ -9,6 +9,7 @@ const Card = ({
   price,
   urlImage,
   quantity,
+  onClick,
 }) => (
   <div
     className="card"
@@ -33,8 +34,9 @@ const Card = ({
     </h4>
     <Button
       className="navbar__btn-decrement"
+      id={ `${id}` }
       type="button"
-      onClick={ () => true }
+      onClick={ onClick }
       datatestid={ `customer_products__button-card-rm-item-${id}` }
       label="-"
       disabled={ quantity === 0 }
@@ -48,8 +50,9 @@ const Card = ({
     />
     <Button
       className="navbar__btn-increment"
+      id={ `${id}` }
       type="button"
-      onClick={ () => true } // alterar aqui para incrementar quantidade
+      onClick={ onClick }
       datatestid={ `customer_products__button-card-add-item-${id}` }
       label="+"
       disabled={ false }
@@ -63,6 +66,7 @@ Card.propTypes = {
   price: PropTypes.number.isRequired,
   urlImage: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Card;
