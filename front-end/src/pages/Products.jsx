@@ -26,7 +26,7 @@ const Products = () => {
     if (!productsList.length) {
       getProducts();
     }
-  }, [setProductsList, userToken]);
+  }, [productsList.length, setProductsList, userToken]);
 
   const handleClick = (event) => {
     const { id } = event.target;
@@ -68,7 +68,7 @@ const Products = () => {
         className="Products__button-cart"
         type="button"
         onClick={ () => navigate('/customer/checkout') }
-        datatestid="customer_products__button-cart"
+        datatestid="customer_products__checkout-bottom-value"
         label="Ver Carrinho"
         disabled={ false }
       />
