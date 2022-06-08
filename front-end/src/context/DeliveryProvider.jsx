@@ -11,7 +11,7 @@ const DeliveryProvider = ({ children }) => {
   const [userToken, setUserToken] = useState('');
   const [productsList, setProductsList] = useState([]);
 
-  const saveUserInfoLocalStorage = (id, name, email, role, token) => {
+  const saveUserInfoLocalStorage = ({ id, name, email, role, token }) => {
     setUserRole(role);
     setUserToken(token);
     localStorage.setItem('user', JSON.stringify({ id, name, email, role, token }));

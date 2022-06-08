@@ -53,7 +53,7 @@ const Register = () => {
         if (name !== userName || email !== userEmail) {
           setIsInvalidRegister(true);
         } else {
-          saveUserInfoLocalStorage(id, name, email, role, token);
+          saveUserInfoLocalStorage({ id, name, email, role, token });
           navigate('/customer/products');
         }
       }).catch((err) => {
