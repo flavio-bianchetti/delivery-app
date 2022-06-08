@@ -30,7 +30,7 @@ const Card = ({
       className="card__price"
       data-testid={ `customer_products__element-card-price-${id}` }
     >
-      { `R$ ${price}` }
+      { `${price.replace('.', ',')}` }
     </h4>
     <Button
       className="navbar__btn-decrement"
