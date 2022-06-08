@@ -36,9 +36,9 @@ const Login = () => {
     if (ValidateEmail(userEmail) && ValidatePassword(userPassword)) {
       requestLogin('/login', { email: userEmail, password: userPassword })
         .then((response) => {
-          const { name, email, role, token } = response;
+          const { id, name, email, role, token } = response;
           setUserName(name);
-          saveUserInfoLocalStorage(name, email, role, token);
+          saveUserInfoLocalStorage({ id, name, email, role, token });
           navigate('/customer/products');
         }).catch((err) => {
           console.error(err);
