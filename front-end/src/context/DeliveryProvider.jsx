@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DeliveryContext from './DeliveryContext';
 
 const DeliveryProvider = ({ children }) => {
@@ -8,12 +8,27 @@ const DeliveryProvider = ({ children }) => {
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
   const [userToken, setUserToken] = useState('');
+  const [productsList, setProductsList] = useState([]);
 
   const saveUserInfoLocalStorage = (name, email, role, token) => {
     setUserRole(role);
     setUserToken(token);
-    localStorage.setItem('user.delivery', JSON.stringify({ name, email, role, token }));
+    localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
   };
+
+  const logout = () => {
+    setUserEmail('');
+    setUserPassword('');
+    setUserName('');
+    setUserRole('');
+    setUserToken('');
+    localStorage.removeItem('user');
+  };
+
+  useEffect(() => {
+    const cart = productsList.filter((product) => product.quantity > 0);
+    localStorage.setItem('carrinho', JSON.stringify(cart));
+  }, [productsList]);
 
   const listDeliveryProvider = {
     userEmail,
@@ -25,6 +40,9 @@ const DeliveryProvider = ({ children }) => {
     saveUserInfoLocalStorage,
     userRole,
     userToken,
+    logout,
+    productsList,
+    setProductsList,
   };
 
   return (

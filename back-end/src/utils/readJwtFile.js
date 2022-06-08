@@ -2,6 +2,6 @@ const { readFileSync } = require('fs');
 
 const JWT_SECRET = readFileSync(`${process.cwd()}/jwt.evaluation.key`, {
   encoding: 'utf8',
-  flag: 'r' }).trim();
+  flag: 'r' });
 
 module.exports = JWT_SECRET;
