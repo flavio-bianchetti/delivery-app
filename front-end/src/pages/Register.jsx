@@ -48,13 +48,12 @@ const Register = () => {
         password: userPassword,
         role: 'customer',
       }).then((response) => {
-        const { name, email, role } = response.user;
+        const { id, name, email, role } = response.user;
         const { token } = response;
         if (name !== userName || email !== userEmail) {
           setIsInvalidRegister(true);
         } else {
-          console.log(name, email, role, token);
-          saveUserInfoLocalStorage(name, email, role, token);
+          saveUserInfoLocalStorage(id, name, email, role, token);
           navigate('/customer/products');
         }
       }).catch((err) => {
