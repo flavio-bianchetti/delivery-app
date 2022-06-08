@@ -18,8 +18,31 @@ const updateStatus = async (req, res, _next) => {
   return res.status(200).json({ response: 'Atualizado com sucesso!' });
 };
 
+const create = async (req, res, _next) => {
+  const {
+    userId, 
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    saleProducts,
+  } = req.body;
+
+  const createdSaleId = await SalesService.create({
+    userId, 
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    saleProducts,
+  });
+
+  return res.status(201).json({ id: createdSaleId }); // retorna o id da venda para redirecionamento da página.
+};
+
 module.exports = {
   getAll,
   getById,
   updateStatus,
+  create,
 };
