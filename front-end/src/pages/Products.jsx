@@ -1,10 +1,13 @@
 import React, { useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import Navbar from '../components/Navbar';
 import Card from '../components/Card';
+import Button from '../components/Button';
 import { requestData } from '../services/request';
 
 const Products = () => {
+  const navigate = useNavigate();
   const {
     userToken,
     productsList,
@@ -20,7 +23,9 @@ const Products = () => {
       }));
       setProductsList(newArray);
     }
-    getProducts();
+    if (!productsList.length) {
+      getProducts();
+    }
   }, [setProductsList, userToken]);
 
   const handleClick = (event) => {
@@ -59,6 +64,14 @@ const Products = () => {
           />),
         )
       }
+      <Button
+        className="Products__button-cart"
+        type="button"
+        onClick={ () => navigate('/customer/checkout') }
+        datatestid="customer_products__button-cart"
+        label="Ver Carrinho"
+        disabled={ false }
+      />
     </section>
   );
 };
