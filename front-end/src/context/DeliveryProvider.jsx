@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import DeliveryContext from './DeliveryContext';
 
 const DeliveryProvider = ({ children }) => {
+  const [userId, setUserId] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userName, setUserName] = useState('');
@@ -10,13 +11,14 @@ const DeliveryProvider = ({ children }) => {
   const [userToken, setUserToken] = useState('');
   const [productsList, setProductsList] = useState([]);
 
-  const saveUserInfoLocalStorage = (name, email, role, token) => {
+  const saveUserInfoLocalStorage = (id, name, email, role, token) => {
     setUserRole(role);
     setUserToken(token);
-    localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
+    localStorage.setItem('user', JSON.stringify({ id, name, email, role, token }));
   };
 
   const logout = () => {
+    setUserId('');
     setUserEmail('');
     setUserPassword('');
     setUserName('');
@@ -31,6 +33,8 @@ const DeliveryProvider = ({ children }) => {
   }, [productsList]);
 
   const listDeliveryProvider = {
+    userId,
+    setUserId,
     userEmail,
     setUserEmail,
     userPassword,
