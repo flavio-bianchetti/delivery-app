@@ -14,10 +14,34 @@ const Products = () => {
   useEffect(() => {
     async function getProducts() {
       const response = await requestData(userToken, '/products');
-      setProductsList(response);
+      const newArray = response.map((product) => ({
+        ...product,
+        quantity: 0,
+      }));
+      setProductsList(newArray);
     }
     getProducts();
   }, [setProductsList, userToken]);
+
+  const handleClick = (event) => {
+    const { id } = event.target;
+    const product = productsList.find((prod) => prod.id === Number(id));
+    if (!product) return;
+    const newQuantity = (
+      event.target.innerHTML === '+'
+        ? Number(product.quantity) + 1
+        : Number(product.quantity) - 1
+    );
+    setProductsList(productsList.map((prod) => {
+      if (prod.id === Number(id)) {
+        return {
+          ...prod,
+          quantity: newQuantity,
+        };
+      }
+      return prod;
+    }));
+  };
 
   return (
     <section>
@@ -30,7 +54,8 @@ const Products = () => {
             name={ product.name }
             price={ product.price }
             urlImage={ product.urlImage }
-            quantity={ 0 } // qual será a melhor forma para armazenar a quantidade do produto?
+            quantity={ product.quantity }
+            onClick={ handleClick }
           />),
         )
       }

@@ -14,6 +14,7 @@ const Login = () => {
   const {
     userEmail,
     setUserEmail,
+    setUserName,
     userPassword,
     setUserPassword,
     saveUserInfoLocalStorage,
@@ -36,6 +37,7 @@ const Login = () => {
       requestLogin('/login', { email: userEmail, password: userPassword })
         .then((response) => {
           const { name, email, role, token } = response;
+          setUserName(name);
           saveUserInfoLocalStorage(name, email, role, token);
           navigate('/customer/products');
         }).catch((err) => {
