@@ -38,7 +38,7 @@ const Login = () => {
         .then((response) => {
           const { id, name, email, role, token } = response;
           setUserName(name);
-          saveUserInfoLocalStorage(id, name, email, role, token);
+          saveUserInfoLocalStorage({ id, name, email, role, token });
           navigate('/customer/products');
         }).catch((err) => {
           console.error(err);
