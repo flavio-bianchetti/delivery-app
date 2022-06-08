@@ -9,6 +9,7 @@ routes.use(cors());
 routes.get('/', SaleController.getAll);
 routes.post('/', SaleController.create);
 routes.get('/:id', SaleController.getById);
+routes.get('/user/:id', SaleController.getByUserId);
 routes.put('/:id', SaleController.updateStatus);
 
 module.exports = routes;
