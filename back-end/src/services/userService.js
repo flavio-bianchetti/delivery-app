@@ -51,9 +51,10 @@ const login = async (email, password) => {
     return { code: 404, message: 'Incorrect password' };
   }
 
-  const { name, role } = user;
+  const { name, role, id } = user;
   
   return {
+    id,
     name,
     email,
     role,
