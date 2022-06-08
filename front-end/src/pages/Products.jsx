@@ -20,7 +20,9 @@ const Products = () => {
       }));
       setProductsList(newArray);
     }
-    getProducts();
+    if (!productsList.length) {
+      getProducts();
+    }
   }, [setProductsList, userToken]);
 
   const handleClick = (event) => {
