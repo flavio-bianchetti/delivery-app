@@ -9,6 +9,7 @@ const {
   SaleRoutes,
   UserRoutes,
 } = require('../routes');
+const path = require('path');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/register', RegisterRoutes);
 app.use('/products', ProductRoutes);
 app.use('/sales', SaleRoutes);
 app.use('/users', UserRoutes);
+app.use('/images', express.static(path.join('public', 'images')));
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
