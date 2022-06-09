@@ -3,7 +3,6 @@ const crypto = require('crypto');
 const { Op } = require('sequelize');
 const { User } = require('../database/models');
 const tokenGenerator = require('../utils/auth/tokenGenerator');
-// const { validateUserSchema } = require('../util/validateSchema');
 
 const create = async ({ name, email, password, role }) => {
   const user = await User.findOne({ where: { [Op.or]: [{ email }, { name }] } });
@@ -23,25 +22,15 @@ const create = async ({ name, email, password, role }) => {
   };
 };
 
-// const getAll = async () => {
-//   try {
-//     const users = await User.findAll();
-//     return users;
-//   } catch (err) {
-//     console.error(err);
-//     return { error: err.message };
-//   }
-// };
-
-// const find = async (id) => {
-//   try {
-//     const user = await User.findByPk(Number(id));
-//     return user;
-//   } catch (err) {
-//     console.error(err);
-//     return { error: err.message };
-//   }
-// };
+const getByRole = async (role) => {
+  try {
+    const users = await User.findAll({ where: { role } });
+    return users;
+  } catch (err) {
+    console.error(err);
+    return { error: err.message };
+  }
+};
 
 const login = async (email, password) => {
   const user = await User.findOne({ where: { email } });
@@ -52,7 +41,7 @@ const login = async (email, password) => {
   }
 
   const { name, role, id } = user;
-  
+
   return {
     id,
     name,
@@ -78,4 +67,5 @@ const login = async (email, password) => {
 module.exports = {
   create,
   login,
+  getByRole,  
 };
