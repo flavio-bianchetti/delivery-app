@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Label from '../components/Label';
@@ -19,6 +19,7 @@ const Register = () => {
     userName,
     setUserName,
     saveUserInfoLocalStorage,
+    logout,
   } = React.useContext(DeliveryContext);
 
   const handleChange = (event) => {
@@ -54,6 +55,7 @@ const Register = () => {
           setIsInvalidRegister(true);
         } else {
           saveUserInfoLocalStorage({ id, name, email, role, token });
+          setUserPassword('');
           navigate('/customer/products');
         }
       }).catch((err) => {
@@ -62,6 +64,10 @@ const Register = () => {
       });
     }
   };
+
+  useEffect(() => {
+    logout();
+  }, []);
 
   return (
     <section>
@@ -116,6 +122,7 @@ const Register = () => {
         />
         <Button
           className="form__btn-submit"
+          id="btn-submit"
           type="submit"
           onClick={ register }
           datatestid="common_register__button-register"
