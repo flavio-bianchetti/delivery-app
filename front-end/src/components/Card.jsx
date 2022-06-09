@@ -10,6 +10,7 @@ const Card = ({
   urlImage,
   quantity,
   onClick,
+  onChange,
 }) => (
   <div
     className="card"
@@ -45,7 +46,7 @@ const Card = ({
       className="card__input"
       type="number"
       value={ quantity }
-      onChange={ () => true } // alterar aqui para decrementar quantidade
+      onChange={ onChange }
       datatestid={ `customer_products__input-card-quantity-${id}` }
     />
     <Button
@@ -67,6 +68,7 @@ Card.propTypes = {
   urlImage: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Card;
