@@ -6,6 +6,6 @@ const routes = Router();
 
 routes.use(cors());
 
-routes.get('/', UserController.getByRole);
+routes.post('/', UserController.getByRole);
 
 module.exports = routes;
