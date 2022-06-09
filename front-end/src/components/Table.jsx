@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import DeliveryContext from '../context/DeliveryContext';
 
 const TABLE_CHECKOUT = [
   'Item',
@@ -11,6 +12,10 @@ const TABLE_CHECKOUT = [
 
 function Table() {
   const [cart, setCart] = useState([]);
+
+  const {
+    totalCart,
+  } = useContext(DeliveryContext);
 
   useEffect(() => {
     const newCart = JSON.parse(localStorage.getItem('carrinho'));
@@ -33,7 +38,7 @@ function Table() {
         <tbody>
           {
             cart.map((product, index) => {
-              const { name, price, quantity } = product;
+              const { name, price, quantity, subTotal } = product;
 
               return (
                 <tr key={ index }>
@@ -63,14 +68,14 @@ function Table() {
                       `customer_checkout__element-order-table-unit-price-${index}`
                     }
                   >
-                    {price}
+                    {price.replace('.', ',')}
                   </td>
                   <td
                     data-testid={
                       `customer_checkout__element-order-table-sub-total-${index}`
                     }
                   >
-                    {price * quantity}
+                    {subTotal}
                   </td>
                   <td
                     data-testid={
@@ -90,6 +95,9 @@ function Table() {
           }
         </tbody>
       </table>
+      <div data-testid="customer_checkout__element-order-total-price">
+        {`Total: R$ ${totalCart}`}
+      </div>
     </>
   );
 }
