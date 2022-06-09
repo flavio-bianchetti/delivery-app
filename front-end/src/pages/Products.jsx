@@ -1,32 +1,17 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import Navbar from '../components/Navbar';
 import Card from '../components/Card';
 import Button from '../components/Button';
-import { requestData } from '../services/request';
 
 const Products = () => {
   const navigate = useNavigate();
   const {
-    userToken,
     productsList,
     setProductsList,
+    totalCart,
   } = useContext(DeliveryContext);
-
-  useEffect(() => {
-    async function getProducts() {
-      const response = await requestData(userToken, '/products');
-      const newArray = response.map((product) => ({
-        ...product,
-        quantity: 0,
-      }));
-      setProductsList(newArray);
-    }
-    if (!productsList.length) {
-      getProducts();
-    }
-  }, [setProductsList, userToken]);
 
   const handleClick = (event) => {
     const { id } = event.target;
@@ -42,6 +27,7 @@ const Products = () => {
         return {
           ...prod,
           quantity: newQuantity,
+          subTotal: (newQuantity * prod.price).toFixed(2).replace('.', ','),
         };
       }
       return prod;
@@ -66,11 +52,12 @@ const Products = () => {
       }
       <Button
         className="Products__button-cart"
+        id="button-cart"
         type="button"
         onClick={ () => navigate('/customer/checkout') }
-        datatestid="customer_products__button-cart"
-        label="Ver Carrinho"
-        disabled={ false }
+        datatestid="customer_products__checkout-bottom-value"
+        label={ `Ver Carrinho: R$ ${totalCart}` }
+        disabled={ totalCart === '0,00' }
       />
     </section>
   );

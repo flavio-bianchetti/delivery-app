@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Label from '../components/Label';
@@ -18,6 +18,7 @@ const Login = () => {
     userPassword,
     setUserPassword,
     saveUserInfoLocalStorage,
+    logout,
   } = React.useContext(DeliveryContext);
 
   const handleChange = (event) => {
@@ -38,6 +39,7 @@ const Login = () => {
         .then((response) => {
           const { id, name, email, role, token } = response;
           setUserName(name);
+          setUserPassword('');
           saveUserInfoLocalStorage({ id, name, email, role, token });
           navigate('/customer/products');
         }).catch((err) => {
@@ -46,6 +48,10 @@ const Login = () => {
         });
     }
   };
+
+  useEffect(() => {
+    logout();
+  }, []);
 
   return (
     <section>
@@ -87,6 +93,7 @@ const Login = () => {
         />
         <Button
           className="form__btn-submit"
+          id="btn-submit"
           type="submit"
           onClick={ login }
           datatestid="common_login__button-login"
@@ -95,6 +102,7 @@ const Login = () => {
         />
         <Button
           className="form__btn-button"
+          id="btn-button"
           type="button"
           onClick={ () => navigate('/register') }
           datatestid="common_login__button-register"
