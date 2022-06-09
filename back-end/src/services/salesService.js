@@ -27,7 +27,7 @@ const getAll = async () => Sales.findAll();
 
 const getById = async (id) => Sales.findByPk(id);
 
-const getByUserId = async (id) => Sales.findAll({ where: { user_id: id } });
+const getByUserId = async (id) => Sales.findAll({ where: { userId: id } });
 
 const updateStatus = async (id, status) => {
   const changedtatus = await Sales.update({ status }, { where: { id } });
