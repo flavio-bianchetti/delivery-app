@@ -24,12 +24,6 @@ const requestData = async (token, endpoint) => {
   return data;
 };
 
-const requestFilteredData = async (token, endpoint, body) => {
-  setToken(token);
-  const { data } = await api.get(endpoint, body);
-  return data;
-};
-
 const updateData = async (token, endpoint, body) => {
   setToken(token);
   const { data } = await api.put(endpoint, body);
@@ -54,7 +48,6 @@ export {
   setToken,
   requestLogin,
   requestData,
-  requestFilteredData,
   setData,
   updateData,
   deleteData,
