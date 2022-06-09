@@ -1,11 +1,5 @@
 const { Sales, SalesProduct, Product } = require('../database/models');
 
-// SALE_PRODUCTS = [{
-//   product: name,
-//   quantity: Number,
-// }];
-// products deverá ser um array de objetos contendo os produtos do pedido e suas quantidades.
-
 const create = async ({
   userId, 
   sellerId,
