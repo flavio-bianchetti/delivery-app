@@ -1,11 +1,5 @@
 const { Sales, SalesProduct, Product } = require('../database/models');
 
-// SALE_PRODUCTS = [{
-//   product: name,
-//   quantity: Number,
-// }];
-// products deverá ser um array de objetos contendo os produtos do pedido e suas quantidades.
-
 const create = async ({
   userId, 
   sellerId,
@@ -33,7 +27,7 @@ const getAll = async () => Sales.findAll();
 
 const getById = async (id) => Sales.findByPk(id);
 
-const getByUserId = async (id) => Sales.findAll({ where: { user_id: id } });
+const getByUserId = async (id) => Sales.findAll({ where: { userId: id } });
 
 const updateStatus = async (id, status) => {
   const changedtatus = await Sales.update({ status }, { where: { id } });
