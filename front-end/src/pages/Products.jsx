@@ -34,6 +34,26 @@ const Products = () => {
     }));
   };
 
+  const handleChange = (event) => {
+    const { value } = event.target;
+    console.log(value, typeof value);
+    const datatestid = event.target.getAttribute('data-testid');
+    const id = datatestid.split('-')[3];
+    const product = productsList.find((prod) => prod.id === Number(id));
+    console.log(product);
+    if (!product || !value.length) return;
+    setProductsList(productsList.map((prod) => {
+      if (prod.id === Number(id)) {
+        return {
+          ...prod,
+          quantity: Number(value),
+          subTotal: (Number(value) * prod.price).toFixed(2).replace('.', ','),
+        };
+      }
+      return prod;
+    }));
+  };
+
   return (
     <section>
       <Navbar />
@@ -47,21 +67,23 @@ const Products = () => {
             urlImage={ product.urlImage }
             quantity={ product.quantity }
             onClick={ handleClick }
+            onChange={ handleChange }
           />),
         )
       }
-      <button
+      <Button
         className="Products__button-cart"
         id="button-cart"
         type="button"
         onClick={ () => navigate('/customer/checkout') }
-        data-testid="customer_products__button-cart"
+        datatestid="customer_products__button-cart"
+        label={
+          <div data-testid="customer_products__checkout-bottom-value">
+            { `Ver Carrinho: R$ ${totalCart}` }
+          </div>
+        }
         disabled={ totalCart === '0,00' }
-      >
-        <div data-testid="customer_products__checkout-bottom-value">
-          { `Ver Carrinho: R$ ${totalCart}` }
-        </div>
-      </button>
+      />
     </section>
   );
 };
