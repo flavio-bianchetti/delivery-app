@@ -29,20 +29,20 @@ const login = async (req, res) => {
   return res.status(200).json(result);
 };
 
-// const getAll = (req, res) => {
-//   try {
-//     const users = await UserService.getAll();
-
-//     if (users.error) return res.status(500).json({ error: users.error });
-
-//     return res.status(200).json(users);
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ error });
-//   }
-// };
+const getByRole = async (req, res) => {
+  try {
+    const { role } = req.body;
+    const users = await UserService.getByRole(role);
+    // if (users.error) return res.status(500).json({ error: users.error });
+    return res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error });
+  }
+};
 
 module.exports = {
   create,
   login,
+  getByRole,
 };
