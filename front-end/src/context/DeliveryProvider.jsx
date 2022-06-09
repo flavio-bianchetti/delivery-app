@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import DeliveryContext from './DeliveryContext';
+import { requestData } from '../services/request';
 
 const DeliveryProvider = ({ children }) => {
   const [userId, setUserId] = useState('');
@@ -10,11 +11,15 @@ const DeliveryProvider = ({ children }) => {
   const [userRole, setUserRole] = useState('');
   const [userToken, setUserToken] = useState('');
   const [productsList, setProductsList] = useState([]);
+  const [totalCart, setTotalCart] = useState('');
 
   const saveUserInfoLocalStorage = ({ id, name, email, role, token }) => {
     setUserRole(role);
     setUserToken(token);
-    localStorage.setItem('user', JSON.stringify({ id, name, email, role, token }));
+    localStorage.setItem(
+      'user',
+      JSON.stringify({ id, name, email, role, token }),
+    );
   };
 
   const logout = () => {
@@ -24,12 +29,79 @@ const DeliveryProvider = ({ children }) => {
     setUserName('');
     setUserRole('');
     setUserToken('');
+    setProductsList([]);
+    setTotalCart('');
     localStorage.removeItem('user');
+    localStorage.removeItem('carrinho');
   };
 
   useEffect(() => {
     const cart = productsList.filter((product) => product.quantity > 0);
-    localStorage.setItem('carrinho', JSON.stringify(cart));
+    if (cart.length) {
+      localStorage.setItem('carrinho', JSON.stringify(cart));
+    } else if (productsList.length) {
+      localStorage.removeItem('carrinho');
+    }
+  }, [productsList]);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      const { id, name, email, role, token } = user;
+      setUserId(id || '');
+      setUserEmail(email || '');
+      setUserName(name || '');
+      setUserRole(role || '');
+      setUserToken(token || '');
+    }
+  }, []);
+
+  useEffect(() => {
+    async function getProducts() {
+      const response = await requestData(userToken, '/products');
+      const newArray = response.map((product) => ({
+        ...product,
+        quantity: 0,
+        subTotal: 0,
+      }));
+      return newArray;
+    }
+
+    if (userToken.length) {
+      getProducts()
+        .then((response) => {
+          // console.log(response);
+          setProductsList(response);
+          const cart = JSON.parse(localStorage.getItem('carrinho'));
+          if (cart) {
+            setProductsList(
+              response.map((product) => {
+                const cartProduct = cart.find((prod) => prod.id === product.id);
+                if (cartProduct) {
+                  return {
+                    ...product,
+                    quantity: cartProduct.quantity,
+                    subTotal: cartProduct.subTotal,
+                  };
+                }
+                return product;
+              }),
+            );
+          }
+        });
+    }
+  }, [userToken]);
+
+  useEffect(() => {
+    if (productsList.length) {
+      const total = productsList.reduce(
+        (acc, product) => (product.quantity > 0
+          ? acc + Number((product.quantity * product.price).toFixed(2))
+          : acc),
+        0,
+      );
+      setTotalCart(total.toFixed(2).replace('.', ','));
+    }
   }, [productsList]);
 
   const listDeliveryProvider = {
@@ -47,6 +119,7 @@ const DeliveryProvider = ({ children }) => {
     logout,
     productsList,
     setProductsList,
+    totalCart,
   };
 
   return (
