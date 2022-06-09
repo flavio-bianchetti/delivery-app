@@ -50,15 +50,18 @@ const Products = () => {
           />),
         )
       }
-      <Button
+      <button
         className="Products__button-cart"
         id="button-cart"
         type="button"
         onClick={ () => navigate('/customer/checkout') }
-        datatestid="customer_products__checkout-bottom-value"
-        label={ `Ver Carrinho: R$ ${totalCart}` }
+        data-testid="customer_products__button-cart"
         disabled={ totalCart === '0,00' }
-      />
+      >
+        <div data-testid="customer_products__checkout-bottom-value">
+          { `Ver Carrinho: R$ ${totalCart}` }
+        </div>
+      </button>
     </section>
   );
 };
