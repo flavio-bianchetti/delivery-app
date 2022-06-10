@@ -1,6 +1,7 @@
 const express = require('express');
 require('express-async-errors');
 require('dotenv').config();
+const path = require('path');
 const { errorHandler } = require('../middlewares');
 const { 
   LoginRoutes, 
@@ -9,7 +10,6 @@ const {
   SaleRoutes,
   UserRoutes,
 } = require('../routes');
-const path = require('path');
 
 const app = express();
 
