@@ -5,16 +5,16 @@ import { setData } from '../services/request';
 function AdressForm() {
   const [sellerList, setSellerList] = useState([]);
   const { userToken } = useContext(DeliveryContext);
-  const body = { role: 'seller' };
+  // const body = { role: 'seller' };
 
   useEffect(() => {
     async function getSeller() {
-      const list = await setData(userToken, '/users', body);
+      const list = await setData(userToken, '/users', { role: 'seller' });
       console.log(list);
       setSellerList(list);
     }
     getSeller();
-  }, []);
+  }, [userToken]);
 
   return (
     <>
