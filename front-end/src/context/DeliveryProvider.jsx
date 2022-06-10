@@ -12,6 +12,7 @@ const DeliveryProvider = ({ children }) => {
   const [userToken, setUserToken] = useState('');
   const [productsList, setProductsList] = useState([]);
   const [totalCart, setTotalCart] = useState('');
+  const [isLogout, setIsLogout] = useState(false);
 
   const saveUserInfoLocalStorage = ({ id, name, email, role, token }) => {
     setUserRole(role);
@@ -22,7 +23,7 @@ const DeliveryProvider = ({ children }) => {
     );
   };
 
-  const logout = () => {
+  useEffect(() => {
     setUserId('');
     setUserEmail('');
     setUserPassword('');
@@ -33,7 +34,8 @@ const DeliveryProvider = ({ children }) => {
     setTotalCart('');
     localStorage.removeItem('user');
     localStorage.removeItem('carrinho');
-  };
+    setIsLogout(false);
+  }, [isLogout]);
 
   useEffect(() => {
     const cart = productsList.filter((product) => product.quantity > 0);
@@ -116,10 +118,10 @@ const DeliveryProvider = ({ children }) => {
     saveUserInfoLocalStorage,
     userRole,
     userToken,
-    logout,
     productsList,
     setProductsList,
     totalCart,
+    setIsLogout,
   };
 
   return (

@@ -7,7 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const {
     userName,
-    logout,
+    setIsLogout,
   } = useContext(DeliveryContext);
 
   return (
@@ -40,7 +40,7 @@ const Navbar = () => {
         className="navbar__btn-logout"
         type="button"
         onClick={ () => {
-          logout();
+          setIsLogout(true);
           navigate('/login');
         } }
         datatestid="customer_products__element-navbar-link-logout"

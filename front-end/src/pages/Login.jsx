@@ -18,7 +18,7 @@ const Login = () => {
     userPassword,
     setUserPassword,
     saveUserInfoLocalStorage,
-    logout,
+    setIsLogout,
   } = React.useContext(DeliveryContext);
 
   const handleChange = (event) => {
@@ -50,8 +50,8 @@ const Login = () => {
   };
 
   useEffect(() => {
-    logout();
-  }, []);
+    setIsLogout(true);
+  }, [setIsLogout]);
 
   return (
     <section>
