@@ -15,12 +15,30 @@ function Table() {
 
   const {
     totalCart,
+    productsList,
+    setProductsList,
   } = useContext(DeliveryContext);
 
   useEffect(() => {
-    const newCart = JSON.parse(localStorage.getItem('carrinho'));
+    const newCart = productsList.filter((product) => product.quantity > 0);
     setCart(newCart);
-  }, []);
+  }, [productsList]);
+
+  function handleClick(e) {
+    const { id } = e.target;
+    const newList = productsList
+      .map((product) => {
+        if (product.id === Number(id)) {
+          return {
+            ...product,
+            quantity: 0,
+            subTotal: 0,
+          };
+        }
+        return product;
+      });
+    setProductsList(newList);
+  }
 
   return (
     <>
@@ -30,7 +48,7 @@ function Table() {
           <tr>
             {
               TABLE_CHECKOUT.map((head) => (
-                <th key={ Math.random() }>{ head }</th>
+                <th key={ Math.random() }>{head}</th>
               ))
             }
           </tr>
@@ -38,7 +56,7 @@ function Table() {
         <tbody>
           {
             cart.map((product, index) => {
-              const { name, price, quantity, subTotal } = product;
+              const { name, price, quantity, subTotal, id } = product;
 
               return (
                 <tr key={ index }>
@@ -84,7 +102,8 @@ function Table() {
                   >
                     <button
                       type="button"
-                      onClick={ () => console.log('teste') }
+                      id={ id }
+                      onClick={ (e) => handleClick(e) }
                     >
                       Remover
                     </button>
