@@ -19,7 +19,7 @@ const Register = () => {
     userName,
     setUserName,
     saveUserInfoLocalStorage,
-    logout,
+    setIsLogout,
   } = React.useContext(DeliveryContext);
 
   const handleChange = (event) => {
@@ -66,8 +66,8 @@ const Register = () => {
   };
 
   useEffect(() => {
-    logout();
-  }, []);
+    setIsLogout(true);
+  }, [setIsLogout]);
 
   return (
     <section>
