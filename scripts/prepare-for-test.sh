@@ -30,13 +30,23 @@ function initialize_front_end() {
     cacheFolderFront="/tmp/delivery-app-front-end-cache"
     rm -rf $cacheFolderFront
     npm_config_loglevel=silent npm install --cache $cacheFolderFront
-    npm run build
+    # npm run build
   )
 }
 
-initialize_back_end & initialize_front_end
+initialize_back_end 
+sleep 10
+initialize_front_end
+sleep 10
 
 printf "\n> Iniciando ambas aplicações\n\n"
 pm2 start pm2.test.config.yml | grep 'PM2'
+
+sleep 10
+
+npx wait-on  -t 60000 http://localhost:3000
+
+sleep 10
+
 
 printf "\n> Continuando processos\n\n"
