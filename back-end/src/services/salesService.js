@@ -1,4 +1,4 @@
-const { Sales, SalesProduct, Product } = require('../database/models');
+const { Sale, SalesProduct, Product } = require('../database/models');
 
 const create = async ({
   userId, 
@@ -7,7 +7,7 @@ const create = async ({
   deliveryAddress,
   deliveryNumber,
   saleProducts }) => {
-  const createdSale = await Sales.create({
+  const createdSale = await Sale.create({
     userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status: 'Pendente' });
 
   const { id } = createdSale;
@@ -23,14 +23,14 @@ const create = async ({
   return id;
 };
 
-const getAll = async () => Sales.findAll();
+const getAll = async () => Sale.findAll();
 
 const getById = async (id) => Sales.findByPk(id);
 
-const getByUserId = async (id) => Sales.findAll({ where: { userId: id } });
+const getByUserId = async (id) => Sale.findAll({ where: { userId: id } });
 
 const updateStatus = async (id, status) => {
-  const changedtatus = await Sales.update({ status }, { where: { id } });
+  const changedtatus = await Sale.update({ status }, { where: { id } });
   return changedtatus;
 };
 
