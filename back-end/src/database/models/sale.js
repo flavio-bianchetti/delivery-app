@@ -1,7 +1,5 @@
-const User = require('./user');
-
-const Sales = (sequelize, DataTypes) => 
-  sequelize.define('Sales', {
+module.exports = (sequelize, DataTypes) => {
+  const Sale = sequelize.define('Sale', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -40,24 +38,20 @@ const Sales = (sequelize, DataTypes) =>
     underscore: true,
   });
 
-  Sales.associate = (models) => {
-    Sales.belongsTo(models.User, {
+  Sale.associate = (models) => {
+    Sale.belongsTo(models.User, {
       foreignKey: 'userId',
-      as: 'fkUserId'
+      as: 'fkUserId',
     });
-    Sales.belongsTo(models.User, {
+    Sale.belongsTo(models.User, {
       foreignKey: 'sellerId',
-      as: 'fkSellerId'
+      as: 'fkSellerId',
     });
-    
-    models.User.hasMany(Sales, {
-      foreignKey: 'idUser',
-      as: 'fkIdUser'
-    });
-    models.User.hasMany(Sales, {
-      foreignKey: 'idSeller',
-      as: 'fkIDSeller'
-    });
-  }
 
-module.exports = Sales;
+    Sale.belongsToMany(models.Product, {
+      through: models.SalesProduct,
+    });
+  };
+
+  return Sale;
+};

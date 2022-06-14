@@ -1,5 +1,5 @@
-const Products = (sequelize, DataTypes) => 
-  sequelize.define('Product', {
+module.exports = (sequelize, DataTypes) => {
+  const Product = sequelize.define('Product', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -13,6 +13,14 @@ const Products = (sequelize, DataTypes) =>
     timestamps: false,
     tableName: 'products',
     underscored: true,
-  });
+  }
+);
 
-module.exports = Products;
+  Product.association = (models) => {
+    Product.belongsToMany(models.Sale, {
+      through: models.SalesProduct,
+    });
+  };
+
+  return Product;
+};
