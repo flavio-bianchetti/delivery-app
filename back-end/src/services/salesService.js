@@ -25,7 +25,27 @@ const create = async ({
 
 const getAll = async () => Sale.findAll();
 
-const getById = async (id) => Sales.findByPk(id);
+// const getById = async (id) => Sales.findByPk(id);
+
+// solução adaptada de:
+// https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize
+// https://stackoverflow.com/questions/38857156/how-to-query-many-to-many-relationship-sequelize
+const getById = async (id) => {
+  const saleProduct = await Sale.findOne(
+    {
+      where: { id },
+      include: [
+        {
+          model: Product,
+          as: 'Products',
+          attributes: ['name', 'price'],
+          through: { attributes: ['quantity'] },
+        },
+      ],
+  },
+);
+  return saleProduct;
+};
 
 const getByUserId = async (id) => Sale.findAll({ where: { userId: id } });
 
