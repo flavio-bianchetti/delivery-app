@@ -1,16 +1,5 @@
-const Sales = require('./sale');
-const Products = require('./product');
-
-const SalesProducts = (sequelize, DataTypes) => 
-  sequelize.define('SalesProduct', {
-    saleId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-    },
-    productId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-    },
+module.exports = (sequelize, DataTypes) => {
+  const SalesProduct = sequelize.define('SalesProduct', {
     quantity: DataTypes.INTEGER,
   },
   {
@@ -19,15 +8,10 @@ const SalesProducts = (sequelize, DataTypes) =>
     underscored: true,
   });
 
-  SalesProducts.associate = (models) => {
-    SalesProducts.belongsToMany(models.Sales, {
-      foreignKey: 'saleId',
-      as: 'fkSaleId'
-    });
-    SalesProducts.belongsToMany(models.Products, {
-      foreignKey: 'productId',
-      as: 'fkProductId'
-    });
+  SalesProduct.associate = (models) => {
+    SalesProduct.belongsTo(models.Product);
+    SalesProduct.belongsTo(models.Sale);
   };
 
-module.exports = SalesProducts;
+  return SalesProduct;
+};
