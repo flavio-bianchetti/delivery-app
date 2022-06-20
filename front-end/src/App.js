@@ -6,15 +6,16 @@ import Products from './pages/Products';
 import Register from './pages/Register';
 import Orders from './pages/Orders';
 import Checkout from './pages/Checkout';
+import OrdersDetails from './pages/OrdersDetails';
 
 const App = () => (
   <Routes>
-    <Route exact path="/login" element={ <Login /> } />
     <Route path="/" element={ <Navigate replace to="/login" /> } />
-    <Route path="/customer/products" element={ <Products /> } />
+    <Route path="/login" element={ <Login /> } />
     <Route path="/register" element={ <Register /> } />
+    <Route path="/customer/products" element={ <Products /> } />
     <Route path="/customer/orders" element={ <Orders /> } />
-    <Route path="/customer/orders/:id" element={ <Orders /> } />
+    <Route path="/customer/orders/:id" element={ <div></div> } />
     <Route path="/customer/checkout" element={ <Checkout /> } />
   </Routes>
 );

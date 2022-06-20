@@ -32,6 +32,16 @@ const getByRole = async (role) => {
   }
 };
 
+const getByUserId = async (id) => {
+  try {
+    const users = await User.findByPk({ where: { id } });
+    return users;
+  } catch (err) {
+    console.error(err);
+    return { error: err.message };
+  }
+};
+
 const login = async (email, password) => {
   const user = await User.findOne({ where: { email } });
   if (!user) return false;
@@ -67,5 +77,6 @@ const login = async (email, password) => {
 module.exports = {
   create,
   login,
-  getByRole,  
+  getByRole,
+  getByUserId,
 };

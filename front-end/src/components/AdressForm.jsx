@@ -19,7 +19,7 @@ function AdressForm() {
 
   async function submitSale() {
     const sellerId = Number(sellerSelected);
-    const { id } = JSON.parse(localStorage.getItem('user'));
+    const { id, token } = JSON.parse(localStorage.getItem('user'));
     const saleProducts = productsList
       .filter((product) => product.quantity > 0)
       .map((p) => ({ product: p.name, quantity: p.quantity }));
@@ -35,8 +35,10 @@ function AdressForm() {
       saleProducts,
     };
 
-    const saleId = await setData(userToken, '/sales', body);
-    navigate(`/customer/orders/${saleId.id}`);
+    const { id: orderId } = await setData(userToken, '/sales', body);
+    
+    // const saleId = await setData(userToken, '/sales', body);
+    navigate('/customer/orders');
   }
 
   useEffect(() => {
