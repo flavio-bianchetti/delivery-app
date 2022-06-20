@@ -23,7 +23,7 @@ const DeliveryProvider = ({ children }) => {
     );
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     setUserId('');
     setUserEmail('');
     setUserPassword('');
@@ -36,7 +36,7 @@ const DeliveryProvider = ({ children }) => {
     localStorage.removeItem('carrinho');
     setIsLogout(false);
   }, [isLogout]);
-
+  */
   useEffect(() => {
     const cart = productsList.filter((product) => product.quantity > 0);
     if (cart.length) {
@@ -117,7 +117,9 @@ const DeliveryProvider = ({ children }) => {
     setUserName,
     saveUserInfoLocalStorage,
     userRole,
+    setUserRole,
     userToken,
+    setUserToken,
     productsList,
     setProductsList,
     totalCart,

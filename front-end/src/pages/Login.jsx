@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
+import { requestData } from '../services/request';
 import Label from '../components/Label';
 import Button from '../components/Button';
 import DeliveryContext from '../context/DeliveryContext';
@@ -18,7 +19,7 @@ const Login = () => {
     userPassword,
     setUserPassword,
     saveUserInfoLocalStorage,
-    setIsLogout,
+    setProductsList,
   } = React.useContext(DeliveryContext);
 
   const handleChange = (event) => {
@@ -50,8 +51,22 @@ const Login = () => {
   };
 
   useEffect(() => {
-    setIsLogout(true);
-  }, [setIsLogout]);
+    const user = JSON.parse(localStorage.getItem('user'))
+    async function getProducts() {
+      const response = await requestData(userToken, '/products');
+      const newArray = response.map((product) => ({
+        ...product,
+        quantity: 0,
+        subTotal: 0,
+      }));
+      return newArray;
+    }
+
+    if (user) {
+      setProductsList(getProducts());
+      navigate('/customer/products');
+    }
+  }, []);
 
   return (
     <section>
