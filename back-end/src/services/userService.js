@@ -34,7 +34,7 @@ const getByRole = async (role) => {
 
 const getByUserId = async (id) => {
   try {
-    const users = await User.findByPk({ where: { id } });
+    const users = await User.findByPk(id);
     return users;
   } catch (err) {
     console.error(err);
