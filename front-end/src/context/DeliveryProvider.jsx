@@ -12,6 +12,7 @@ const DeliveryProvider = ({ children }) => {
   const [userToken, setUserToken] = useState('');
   const [productsList, setProductsList] = useState([]);
   const [totalCart, setTotalCart] = useState('');
+  const [isChangeProductList, setIsChangeProductList] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
 
   const saveUserInfoLocalStorage = ({ id, name, email, role, token }) => {
@@ -23,28 +24,21 @@ const DeliveryProvider = ({ children }) => {
     );
   };
 
-  /*useEffect(() => {
-    setUserId('');
-    setUserEmail('');
-    setUserPassword('');
-    setUserName('');
-    setUserRole('');
-    setUserToken('');
-    setProductsList([]);
-    setTotalCart('');
-    localStorage.removeItem('user');
-    localStorage.removeItem('carrinho');
-    setIsLogout(false);
-  }, [isLogout]);
-  */
   useEffect(() => {
-    const cart = productsList.filter((product) => product.quantity > 0);
-    if (cart.length) {
-      localStorage.setItem('carrinho', JSON.stringify(cart));
-    } else if (productsList.length) {
+    if (isLogout) {
+      setUserId('');
+      setUserEmail('');
+      setUserPassword('');
+      setUserName('');
+      setUserRole('');
+      setUserToken('');
+      setProductsList([]);
+      setTotalCart('');
+      localStorage.removeItem('user');
       localStorage.removeItem('carrinho');
+      setIsLogout(false);
     }
-  }, [productsList]);
+  }, [isLogout]);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -72,7 +66,6 @@ const DeliveryProvider = ({ children }) => {
     if (userToken.length) {
       getProducts()
         .then((response) => {
-          // console.log(response);
           setProductsList(response);
           const cart = JSON.parse(localStorage.getItem('carrinho'));
           if (cart) {
@@ -95,6 +88,16 @@ const DeliveryProvider = ({ children }) => {
   }, [userToken]);
 
   useEffect(() => {
+    if (isChangeProductList) {
+      const cart = productsList.filter((product) => product.quantity > 0);
+      if (cart.length) {
+        localStorage.setItem('carrinho', JSON.stringify(cart));
+      } else {
+        localStorage.removeItem('carrinho');
+      }
+      setIsChangeProductList(false);
+    }
+
     if (productsList.length) {
       const total = productsList.reduce(
         (acc, product) => (product.quantity > 0
@@ -104,7 +107,7 @@ const DeliveryProvider = ({ children }) => {
       );
       setTotalCart(total.toFixed(2).replace('.', ','));
     }
-  }, [productsList]);
+  }, [isChangeProductList, productsList]);
 
   const listDeliveryProvider = {
     userId,
@@ -123,6 +126,8 @@ const DeliveryProvider = ({ children }) => {
     productsList,
     setProductsList,
     totalCart,
+    isChangeProductList,
+    setIsChangeProductList,
     setIsLogout,
   };
 
