@@ -35,8 +35,10 @@ function AdressForm() {
       saleProducts,
     };
 
-    const saleId = await setData(userToken, '/sales', body);
-    navigate(`/customer/orders/${saleId.id}`);
+    const { id: orderId } = await setData(userToken, '/sales', body);
+
+    // const saleId = await setData(userToken, '/sales', body);
+    navigate(`/customer/orders/${orderId}`);
   }
 
   useEffect(() => {

@@ -41,8 +41,20 @@ const getByRole = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const users = await UserService.getByUserId(id);
+    return res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error });
+  }
+};
+
 module.exports = {
   create,
   login,
   getByRole,
+  getById,
 };

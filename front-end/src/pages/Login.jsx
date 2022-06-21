@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
+import { requestLogin } from '../services/request';
 import Label from '../components/Label';
 import Button from '../components/Button';
 import DeliveryContext from '../context/DeliveryContext';
 import { ValidateEmail, ValidatePassword } from '../utils';
-import { requestLogin } from '../services/request';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ const Login = () => {
     userPassword,
     setUserPassword,
     saveUserInfoLocalStorage,
-    setIsLogout,
   } = React.useContext(DeliveryContext);
 
   const handleChange = (event) => {
@@ -51,8 +50,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    setIsLogout(true);
-  }, [setIsLogout]);
+    if (JSON.parse(localStorage.getItem('user'))) {
+      navigate('/customer/products');
+    }
+  }, [navigate]);
 
   return (
     <section>

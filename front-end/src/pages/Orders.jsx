@@ -10,6 +10,7 @@ const Orders = () => {
     async function getOrders() {
       const { id, token } = JSON.parse(localStorage.getItem('user'));
       const orders = await requestData(token, `/sales/user/${id}`);
+      console.log(orders);
       setUserOrder(orders);
     }
     getOrders();
@@ -19,12 +20,9 @@ const Orders = () => {
     <section>
       <Navbar />
       {
-        userOrder.map(({ id, status, totalPrice, saleDate }) => (<OrderCard
-          key={ id }
-          id={ id }
-          status={ status }
-          totalPrice={ totalPrice }
-          saleDate={ saleDate }
+        userOrder.map((sale) => (<OrderCard
+          key={ sale.id }
+          sale={ sale }
         />))
       }
     </section>
