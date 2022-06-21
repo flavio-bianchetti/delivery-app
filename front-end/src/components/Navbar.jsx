@@ -41,7 +41,7 @@ const Navbar = () => {
         type="button"
         onClick={ () => {
           setIsLogout(true);
-          navigate('/login');
+          navigate('/');
         } }
         datatestid="customer_products__element-navbar-link-logout"
         label="Sair"
