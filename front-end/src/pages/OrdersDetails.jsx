@@ -5,27 +5,27 @@ import Navbar from '../components/Navbar';
 import { requestData } from '../services/request';
 import TableDetails from '../components/TableDetails';
 
-const OrdersDetails = () => {
-  const [saleProducts, setSaleProducts] = useState([]);
+const OrdersDetails = () =>
+// const [saleProducts, setSaleProducts] = useState([]);
 
-  const { status, saleDate, totalPrice } = saleProducts;
-  const date = moment(Date.parse(saleDate)).format('DD/MM/YYYY');
+// const { status, saleDate, totalPrice } = saleProducts;
+// const date = moment(Date.parse(saleDate)).format('DD/MM/YYYY');
 
-  const { id } = useParams();
+// const { id } = useParams();
 
-  useEffect(() => {
-    async function getProducts() {
-      const { token } = JSON.parse(localStorage.getItem('user'));
-      const products = await requestData(token, `/sales/${id}`);
-      setSaleProducts(products);
-    }
-    getProducts();
-  }, [id]);
+// useEffect(() => {
+//   async function getProducts() {
+//     const { token } = JSON.parse(localStorage.getItem('user'));
+//     const products = await requestData(token, `/sales/${id}`);
+//     setSaleProducts(products);
+//   }
+//   getProducts();
+// }, [id]);
 
-  return (
+  (
     <section>
       <Navbar />
-      <div>
+      {/* <div>
         <div>
           <div
             data-testid="customer_order_details__element-order-details-label-order-id"
@@ -65,9 +65,7 @@ const OrdersDetails = () => {
           </span>
         </div>
       </div>
-      <p>salve</p>
+      <p>salve</p> */}
     </section>
   );
-};
-
 export default OrdersDetails;

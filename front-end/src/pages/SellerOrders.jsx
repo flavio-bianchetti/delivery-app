@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
-import OrderCard from '../components/OrderCard';
+import SellerOrderCard from '../components/SellerOrderCard';
 import { setData } from '../services/request';
 
 const SellerOrders = () => {
@@ -19,13 +19,9 @@ const SellerOrders = () => {
     <section>
       <Navbar />
       {
-        sellerOrders.map(({ id, status, totalPrice, saleDate }) => (<OrderCard
-          key={ id }
-          id={ id }
-          status={ status }
-          totalPrice={ totalPrice }
-          saleDate={ saleDate }
-          isSeller
+        sellerOrders.map((sale) => (<SellerOrderCard
+          key={ sale.id }
+          sale={ sale }
         />))
       }
     </section>
