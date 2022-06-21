@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
-import { requestData } from '../services/request';
+import { requestLogin } from '../services/request';
 import Label from '../components/Label';
 import Button from '../components/Button';
 import DeliveryContext from '../context/DeliveryContext';
 import { ValidateEmail, ValidatePassword } from '../utils';
-import { requestLogin } from '../services/request';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ const Login = () => {
     userPassword,
     setUserPassword,
     saveUserInfoLocalStorage,
-    setProductsList,
   } = React.useContext(DeliveryContext);
 
   const handleChange = (event) => {
@@ -51,22 +49,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'))
-    async function getProducts() {
-      const response = await requestData(userToken, '/products');
-      const newArray = response.map((product) => ({
-        ...product,
-        quantity: 0,
-        subTotal: 0,
-      }));
-      return newArray;
-    }
-
-    if (user) {
-      setProductsList(getProducts());
+    if (JSON.parse(localStorage.getItem('user'))) {
       navigate('/customer/products');
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <section>

@@ -11,6 +11,7 @@ const Products = () => {
     productsList,
     setProductsList,
     totalCart,
+    setIsChangeProductList,
   } = useContext(DeliveryContext);
 
   const handleClick = (event) => {
@@ -32,6 +33,7 @@ const Products = () => {
       }
       return prod;
     }));
+    setIsChangeProductList(true);
   };
 
   const handleChange = (event) => {
