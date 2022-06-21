@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TableDetails = ({ products }) => (
+const TableDetails = ({ products, userRole }) => (
   <section>
     <table>
       <thead>
@@ -22,35 +22,35 @@ const TableDetails = ({ products }) => (
               <tr key={ index }>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-item-number-${index}`
+                    `${userRole}_order_details__element-order-table-item-number-${index}`
                   }
                 >
                   {index + 1}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-name-${index}`
+                    `${userRole}_order_details__element-order-table-name-${index}`
                   }
                 >
                   {name}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-quantity-${index}`
+                    `${userRole}_order_details__element-order-table-quantity-${index}`
                   }
                 >
                   {quantity}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-unit-price-${index}`
+                    `${userRole}_order_details__element-order-table-unit-price-${index}`
                   }
                 >
                   {price.replace('.', ',')}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-sub-total-${index}`
+                    `${userRole}_order_details__element-order-table-sub-total-${index}`
                   }
                 >
                   {(Number(price) * quantity).toFixed(2).replace('.', ',')}
@@ -73,6 +73,7 @@ TableDetails.propTypes = {
       }).isRequired,
     }).isRequired,
   ).isRequired,
+  userRole: PropTypes.string.isRequired,
 };
 
 export default TableDetails;
