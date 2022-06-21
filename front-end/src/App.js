@@ -6,6 +6,7 @@ import Products from './pages/Products';
 import Register from './pages/Register';
 import Orders from './pages/Orders';
 import Checkout from './pages/Checkout';
+import SellerOrders from './pages/SellerOrders';
 
 const App = () => (
   <Routes>
@@ -16,6 +17,7 @@ const App = () => (
     <Route path="/customer/orders" element={ <Orders /> } />
     <Route path="/customer/orders/:id" element={ <Orders /> } />
     <Route path="/customer/checkout" element={ <Checkout /> } />
+    <Route path="/seller/orders" element={ <SellerOrders /> } />
   </Routes>
 );
 
