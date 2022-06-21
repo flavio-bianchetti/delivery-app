@@ -25,8 +25,6 @@ const create = async ({
 
 const getAll = async () => Sale.findAll();
 
-// const getById = async (id) => Sales.findByPk(id);
-
 // solução adaptada de:
 // https://stackoverflow.com/questions/22958683/how-to-implement-many-to-many-association-in-sequelize
 // https://stackoverflow.com/questions/38857156/how-to-query-many-to-many-relationship-sequelize
@@ -49,6 +47,8 @@ const getById = async (id) => {
 
 const getByUserId = async (id) => Sale.findAll({ where: { userId: id } });
 
+const getBySellerId = async (id) => Sale.findAll({ where: { sellerId: id } });
+
 const updateStatus = async (id, status) => {
   const changedtatus = await Sale.update({ status }, { where: { id } });
   return changedtatus;
@@ -60,4 +60,5 @@ module.exports = {
   getById,
   updateStatus,
   getByUserId,
+  getBySellerId,
 };

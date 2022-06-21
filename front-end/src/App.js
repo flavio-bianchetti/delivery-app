@@ -6,6 +6,7 @@ import Products from './pages/Products';
 import Register from './pages/Register';
 import Orders from './pages/Orders';
 import Checkout from './pages/Checkout';
+import SellerOrders from './pages/SellerOrders';
 import OrdersDetails from './pages/OrdersDetails';
 
 const App = () => (
@@ -17,6 +18,8 @@ const App = () => (
     <Route path="/customer/orders" element={ <Orders /> } />
     <Route path="/customer/orders/:id" element={ <OrdersDetails /> } />
     <Route path="/customer/checkout" element={ <Checkout /> } />
+    <Route path="/seller/orders" element={ <SellerOrders /> } />
+    <Route path="/seller/orders/:id" element={ <OrdersDetails /> } />
   </Routes>
 );
 

@@ -33,7 +33,6 @@ const OrdersDetails = () => {
     }
     getProducts();
   }, [id]);
-
   return (
     <section>
       <Navbar />

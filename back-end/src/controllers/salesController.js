@@ -17,6 +17,17 @@ const getByUserId = async (req, res, _next) => {
   return res.status(200).json(userSale);
 };
 
+const getBySellerId = async (req, res, _next) => {
+  const { id } = req.body;
+  const sellerSales = await SalesService.getBySellerId(id);
+
+  if (!sellerSales.length) {
+    return res.status(404).json({ message: 'This seller has no sales' }); 
+  }
+
+  return res.status(200).json(sellerSales);
+};
+
 const updateStatus = async (req, res, _next) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -43,7 +54,7 @@ const create = async (req, res, _next) => {
     saleProducts,
   });
 
-  return res.status(201).json({ id: createdSaleId }); // retorna o id da venda para redirecionamento da página.
+  return res.status(201).json({ id: createdSaleId });
 };
 
 module.exports = {
@@ -52,4 +63,5 @@ module.exports = {
   updateStatus,
   create,
   getByUserId,
+  getBySellerId,
 };

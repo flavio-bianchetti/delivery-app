@@ -40,6 +40,7 @@ const Login = () => {
           setUserName(name);
           setUserPassword('');
           saveUserInfoLocalStorage({ id, name, email, role, token });
+          if (role === 'seller') return navigate('/seller/orders');
           navigate('/customer/products');
         }).catch((err) => {
           console.error(err);
