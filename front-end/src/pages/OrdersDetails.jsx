@@ -20,7 +20,7 @@ const OrdersDetails = () => {
       setSaleProducts(products);
     }
     getProducts();
-  }, []);
+  }, [id]);
 
   return (
     <section>

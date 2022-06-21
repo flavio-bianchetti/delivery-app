@@ -9,13 +9,16 @@ const OrderCard = ({ sale }) => {
   const cleanedPrice = totalPrice.replace('.', ',');
 
   const navigate = useNavigate();
-  
+
   return (
     <button
-    type="button"
-    onClick={ () => navigate(`/customer/orders/${id}`) }
-      >
-      <span data-testid={ `customer_orders__element-order-id-${id}` }>{`Pedido ${id}`} </span>
+      type="button"
+      onClick={ () => navigate(`/customer/orders/${id}`) }
+    >
+      <span data-testid={ `customer_orders__element-order-id-${id}` }>
+        {`Pedido ${id}`}
+        {' '}
+      </span>
       <div data-testid={ `customer_orders__element-delivery-status-${id}` }>
         { status }
       </div>
@@ -25,7 +28,7 @@ const OrderCard = ({ sale }) => {
       <div data-testid={ `customer_orders__element-card-price-${id}` }>
         { `R$ ${cleanedPrice}`}
       </div>
-      </button>
+    </button>
   );
 };
 

@@ -52,8 +52,6 @@ const getById = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   create,
   login,
