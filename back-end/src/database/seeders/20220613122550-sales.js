@@ -11,7 +11,7 @@ module.exports = {
         delivery_address: "asdasdasd",
         delivery_number: "12323",
         sale_date: new Date("2011-08-01T19:58:00.000Z"),
-        status: ""
+        status: "Entregue"
       },
       {
         id: 2,
@@ -21,7 +21,7 @@ module.exports = {
         delivery_address: "xxxx",
         delivery_number: "90909090909090",
         sale_date: new Date("2011-09-19T19:58:00.000Z"),
-        status: ""
+        status: "Pendente"
       },
   ], {});
   },
