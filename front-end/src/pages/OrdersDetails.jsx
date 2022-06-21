@@ -1,53 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import moment from 'moment';
 import Navbar from '../components/Navbar';
 import { requestData } from '../services/request';
 import TableDetails from '../components/TableDetails';
 
-const OrdersDetails = () =>
-// const [saleProducts, setSaleProducts] = useState([]);
+const OrdersDetails = () => {
+  const [saleProducts, setSaleProducts] = useState([]);
+  const [userOrder, setUserOrder] = useState([]);
+  const [totalPrice, setTotalPrice] = useState('0,00');
+  const [sellerName, setSellerName] = useState('');
 
-// const { status, saleDate, totalPrice } = saleProducts;
-// const date = moment(Date.parse(saleDate)).format('DD/MM/YYYY');
+  const dtStatus = 'customer_order_details__element-order-details-label-delivery-status';
 
-// const { id } = useParams();
+  const { id } = useParams();
 
-// useEffect(() => {
-//   async function getProducts() {
-//     const { token } = JSON.parse(localStorage.getItem('user'));
-//     const products = await requestData(token, `/sales/${id}`);
-//     setSaleProducts(products);
-//   }
-//   getProducts();
-// }, [id]);
-
-  (
+  useEffect(() => {
+    async function getProducts() {
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      const order = await requestData(token, `/sales/${id}`);
+      console.log(order);
+      if (order.sellerId) {
+        console.log(order.sellerId);
+        const seller = await requestData(token, `/users/${order.sellerId}`);
+        console.log(seller);
+        const { name } = seller;
+        console.log(name);
+        setUserOrder(order);
+        setSaleProducts(order.Products);
+        setTotalPrice(order.totalPrice);
+        setSellerName(name);
+      }
+    }
+    getProducts();
+  }, [id]);
+  return (
     <section>
       <Navbar />
-      {/* <div>
+      <div>
         <div>
           <div
             data-testid="customer_order_details__element-order-details-label-order-id"
           >
-            { `Pedido ${id}` }
+            { `Pedido ${userOrder.id}` }
           </div>
           <div
             data-testid="customer_order_details__element-order-details-label-seller-name"
           >
-            P. Vend: Fulana Pereira
+            {`P.Vend: ${sellerName}`}
           </div>
           <div
-            data-testid="customer_order_details__element
-          -order-details-label-order-date"
+            data-testid="customer_order_details__element-order-details-label-order-date"
           >
-            { date }
+            { ` ${new Date(`${userOrder.saleDate}`).toLocaleDateString()} ` }
           </div>
           <div
-            data-testid="customer_order_details__element
-            -order-details-label-delivery-status"
+            data-testid={ dtStatus }
           >
-            { status }
+            { userOrder.status }
           </div>
           <button
             type="button"
@@ -57,15 +66,16 @@ const OrdersDetails = () =>
             MARCAR COMO ENTREGUE
           </button>
         </div>
-        <TableDetails saleProducts={ saleProducts } />
+        <TableDetails products={ saleProducts } />
         <div>
-          <span>Total: R$</span>
+          <span>Total: R$ </span>
           <span data-testid="customer_order_details__element-order-total-price">
             {totalPrice.replace('.', ',')}
           </span>
         </div>
       </div>
-      <p>salve</p> */}
     </section>
   );
+};
+
 export default OrdersDetails;
