@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Input from '../components/Input';
 import { requestLogin } from '../services/request';
-import Label from '../components/Label';
 import Button from '../components/Button';
 import DeliveryContext from '../context/DeliveryContext';
 import { ValidateEmail, ValidatePassword } from '../utils';
+import delivery from '../images/delivery-logo.gif';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -56,45 +58,52 @@ const Login = () => {
   }, [navigate]);
 
   return (
-    <section>
-      <h1
-        className="form"
+    <Box
+      component="form"
+      // sx={ {
+      // width: 300,
+      // height: 300,
+      //   backgroundColor: 'primary.dark',
+      //   '&:hover': {
+      //     backgroundColor: 'primary.main',
+      //     opacity: [0.9, 0.8, 0.7],
+      //   },
+      // } }
+      noValidate
+      autoComplete="off"
+    >
+      <Stack
+        direction="column"
+        alignItems="center"
+        spacing={ 2 }
+        padding={ 2 }
       >
-        Login
-      </h1>
-      <form>
-        <Label
-          className="form__label"
-          htmlFor="email"
-          datatestid="common_login__label-email"
-          label="E-mail"
-        />
+        <img src={ delivery } alt="logo" />
         <Input
           className="form__input"
+          variant="outlined"
+          label="E-mail"
           type="text"
           id="email"
           value={ userEmail }
           onChange={ handleChange }
           datatestid="common_login__input-email"
-          placeholder="E-mail"
-        />
-        <Label
-          className="form__label"
-          htmlFor="password"
-          datatestid="common_login__label-password"
-          label="Senha"
+          placeholder="insira seu e-mail"
         />
         <Input
           className="form__input"
+          variant="outlined"
+          label="E-mail"
           type="password"
           id="password"
           value={ userPassword }
           onChange={ handleChange }
           datatestid="common_login__input-password"
-          placeholder="digite sua senha"
+          placeholder="insira sua senha"
         />
         <Button
           className="form__btn-submit"
+          variant="contained"
           id="btn-submit"
           type="submit"
           onClick={ login }
@@ -104,6 +113,7 @@ const Login = () => {
         />
         <Button
           className="form__btn-button"
+          variant="text"
           id="btn-button"
           type="button"
           onClick={ () => navigate('/register') }
@@ -111,7 +121,7 @@ const Login = () => {
           label="Ainda não tenho conta"
           disabled={ false }
         />
-      </form>
+      </Stack>
       {
         isInvalidLogin
         && (
@@ -123,7 +133,7 @@ const Login = () => {
           </p>
         )
       }
-    </section>
+    </Box>
   );
 };
 
