@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TextField from '@mui/material/TextField';
 
 const Input = ({
   className,
+  variant,
+  label,
   id,
   type,
   value,
@@ -10,8 +13,10 @@ const Input = ({
   datatestid,
   placeholder,
 }) => (
-  <input
+  <TextField
     className={ className }
+    variant={ variant }
+    label={ label }
     id={ id }
     type={ type }
     value={ value }
@@ -23,6 +28,8 @@ const Input = ({
 
 Input.propTypes = {
   className: PropTypes.string.isRequired,
+  variant: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
