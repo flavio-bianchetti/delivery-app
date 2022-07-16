@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import Input from '../components/Input';
 import { requestLogin } from '../services/request';
 import Button from '../components/Button';
@@ -59,80 +61,92 @@ const Login = () => {
 
   return (
     <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
       component="form"
-      // sx={ {
-      // width: 300,
-      // height: 300,
-      //   backgroundColor: 'primary.dark',
-      //   '&:hover': {
-      //     backgroundColor: 'primary.main',
-      //     opacity: [0.9, 0.8, 0.7],
-      //   },
-      // } }
-      noValidate
-      autoComplete="off"
+      autocomplete="on"
     >
       <Stack
+        sx={ { width: '300px' } }
         direction="column"
         alignItems="center"
         spacing={ 2 }
         padding={ 2 }
       >
         <img src={ delivery } alt="logo" />
-        <Input
-          className="form__input"
-          variant="outlined"
-          label="E-mail"
-          type="text"
-          id="email"
-          value={ userEmail }
-          onChange={ handleChange }
-          datatestid="common_login__input-email"
-          placeholder="insira seu e-mail"
-        />
-        <Input
-          className="form__input"
-          variant="outlined"
-          label="E-mail"
-          type="password"
-          id="password"
-          value={ userPassword }
-          onChange={ handleChange }
-          datatestid="common_login__input-password"
-          placeholder="insira sua senha"
-        />
-        <Button
-          className="form__btn-submit"
-          variant="contained"
-          id="btn-submit"
-          type="submit"
-          onClick={ login }
-          datatestid="common_login__button-login"
-          label="Login"
-          disabled={ !(ValidateEmail(userEmail) && ValidatePassword(userPassword)) }
-        />
-        <Button
-          className="form__btn-button"
-          variant="text"
-          id="btn-button"
-          type="button"
-          onClick={ () => navigate('/register') }
-          datatestid="common_login__button-register"
-          label="Ainda não tenho conta"
-          disabled={ false }
-        />
+        <Stack
+          width="100%"
+        >
+          <Input
+            className="form__input"
+            variant="outlined"
+            label="E-mail"
+            type="text"
+            id="email"
+            value={ userEmail }
+            onChange={ handleChange }
+            datatestid="common_login__input-email"
+            placeholder="insira seu e-mail"
+          />
+        </Stack>
+        <Stack
+          width="100%"
+        >
+          <Input
+            className="form__input"
+            variant="outlined"
+            label="E-mail"
+            type="password"
+            id="password"
+            value={ userPassword }
+            onChange={ handleChange }
+            datatestid="common_login__input-password"
+            placeholder="insira sua senha"
+          />
+        </Stack>
+        <Stack
+          width="100%"
+        >
+          <Button
+            className="form__btn-submit"
+            variant="contained"
+            id="btn-submit"
+            type="submit"
+            onClick={ login }
+            datatestid="common_login__button-login"
+            label="Login"
+            disabled={ !(ValidateEmail(userEmail) && ValidatePassword(userPassword)) }
+          />
+        </Stack>
+        <Stack
+          width="100%"
+        >
+          <Button
+            className="form__btn-button"
+            variant="text"
+            id="btn-button"
+            type="button"
+            onClick={ () => navigate('/register') }
+            datatestid="common_login__button-register"
+            label="Ainda não tenho conta"
+            disabled={ false }
+          />
+        </Stack>
       </Stack>
-      {
-        isInvalidLogin
-        && (
-          <p
-            className="form__warning"
-            data-testid="common_login__element-invalid-email"
-          >
-            Usuário ou senha inválidos.
-          </p>
-        )
-      }
+      <Snackbar
+        sx={ {
+          width: 400,
+          color: 'secondary',
+          '& .MuiSnackbarContent-root': { backgroundColor: 'red' },
+        } }
+        open={ isInvalidLogin }
+        anchorOrigin={ { vertical: 'bottom', horizontal: 'center' } }
+        autoHideDuration={ 1000 }
+        transitionDuration={ { enter: 1000, exit: 1000 } }
+        severity="error"
+        message="Usuário ou senha inválidos."
+      />
     </Box>
   );
 };
