@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '@mui/material/Button';
 
-const Button = ({
+const ButtonElement = ({
   className,
+  variant,
   id,
   type,
   onClick,
@@ -10,8 +12,9 @@ const Button = ({
   label,
   disabled,
 }) => (
-  <button
+  <Button
     className={ className }
+    variant={ variant }
     id={ id || className }
     type={ type === 'submit' ? 'submit' : 'button' }
     onClick={ onClick }
@@ -19,11 +22,12 @@ const Button = ({
     disabled={ disabled }
   >
     { label }
-  </button>
+  </Button>
 );
 
-Button.propTypes = {
+ButtonElement.propTypes = {
   className: PropTypes.string.isRequired,
+  variant: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   datatestid: PropTypes.string.isRequired,
@@ -32,4 +36,4 @@ Button.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default Button;
+export default ButtonElement;
