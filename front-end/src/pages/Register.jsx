@@ -8,6 +8,8 @@ import Button from '../components/Button';
 import DeliveryContext from '../context/DeliveryContext';
 import { ValidateEmail, ValidatePassword, ValidateName } from '../utils';
 import { requestLogin } from '../services/request';
+import nameApp from '../images/delivery-name.png';
+import registerLogo from '../images/register-logo.gif';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -86,7 +88,13 @@ const Register = () => {
         spacing={ 2 }
         padding={ 2 }
       >
-        <h1>Cadastro</h1>
+        <Stack
+          spacing={ 0 }
+          alignItems="center"
+        >
+          <img src={ registerLogo } width="200px" alt="delivery app" />
+          <img src={ nameApp } width="220px" alt="delivery app" />
+        </Stack>
         <Stack
           width="100%"
         >
