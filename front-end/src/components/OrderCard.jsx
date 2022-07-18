@@ -11,6 +11,53 @@ const OrderCard = ({ sale }) => {
 
   const navigate = useNavigate();
 
+  const statusDatePriceStack = () => (
+    <Stack
+      direction="row"
+    >
+      <Stack>
+        <Typography
+          component="div"
+          align="center"
+          color="white"
+          backgroundColor="red"
+          padding={ 2 }
+          margin={ 2 }
+          borderRadius={ 1 }
+          data-testid={ `customer_orders__element-delivery-status-${id}` }
+        >
+          { status }
+        </Typography>
+      </Stack>
+      <Stack
+        direction="column"
+      >
+        <Stack>
+          <Typography
+            component="div"
+            align="center"
+            color="green"
+            padding={ 1 }
+            data-testid={ `customer_orders__element-order-date-${id}` }
+          >
+            { cleanedDate }
+          </Typography>
+        </Stack>
+        <Stack>
+          <Typography
+            component="div"
+            align="center"
+            color="green"
+            padding={ 1 }
+            data-testid={ `customer_orders__element-card-price-${id}` }
+          >
+            { `R$ ${cleanedPrice}`}
+          </Typography>
+        </Stack>
+      </Stack>
+    </Stack>
+  );
+
   return (
     <Box
       display="flex"
@@ -43,50 +90,7 @@ const OrderCard = ({ sale }) => {
           direction="column"
           backgroundColor="#f1f1f1"
         >
-          <Stack
-            direction="row"
-          >
-            <Stack>
-              <Typography
-                component="div"
-                align="center"
-                color="white"
-                backgroundColor="red"
-                padding={ 2 }
-                margin={ 2 }
-                borderRadius={ 1 }
-                data-testid={ `customer_orders__element-delivery-status-${id}` }
-              >
-                { status }
-              </Typography>
-            </Stack>
-            <Stack
-              direction="column"
-            >
-              <Stack>
-                <Typography
-                  component="div"
-                  align="center"
-                  color="green"
-                  padding={ 1 }
-                  data-testid={ `customer_orders__element-order-date-${id}` }
-                >
-                  { cleanedDate }
-                </Typography>
-              </Stack>
-              <Stack>
-                <Typography
-                  component="div"
-                  align="center"
-                  color="green"
-                  padding={ 1 }
-                  data-testid={ `customer_orders__element-card-price-${id}` }
-                >
-                  { `R$ ${cleanedPrice}`}
-                </Typography>
-              </Stack>
-            </Stack>
-          </Stack>
+          { statusDatePriceStack() }
           <Stack>
             <Typography
               component="div"
