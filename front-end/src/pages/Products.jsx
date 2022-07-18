@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import DeliveryContext from '../context/DeliveryContext';
 import Navbar from '../components/Navbar';
 import Card from '../components/Card';
-import Button from '../components/Button';
 
 const Products = () => {
   const navigate = useNavigate();
@@ -15,11 +18,12 @@ const Products = () => {
   } = useContext(DeliveryContext);
 
   const handleClick = (event) => {
-    const { id } = event.target;
+    console.log(event.currentTarget.name, event.currentTarget.id);
+    const { id, name } = event.currentTarget;
     const product = productsList.find((prod) => prod.id === Number(id));
     if (!product) return;
     const newQuantity = (
-      event.target.innerHTML === '+'
+      name === '+'
         ? Number(product.quantity) + 1
         : Number(product.quantity) - 1
     );
@@ -37,15 +41,13 @@ const Products = () => {
   };
 
   const handleChange = (event) => {
-    const { value } = event.target;
-    console.log(value, typeof value);
-    const datatestid = event.target.getAttribute('data-testid');
-    const id = datatestid.split('-')[3];
-    const product = productsList.find((prod) => prod.id === Number(id));
+    const { value, id } = event.target;
+    const selectId = id.split('-')[1];
+    const product = productsList.find((prod) => prod.id === Number(selectId));
     console.log(product);
     if (!product || !value.length) return;
     setProductsList(productsList.map((prod) => {
-      if (prod.id === Number(id)) {
+      if (prod.id === Number(selectId)) {
         return {
           ...prod,
           quantity: Number(value),
@@ -59,33 +61,56 @@ const Products = () => {
   return (
     <section>
       <Navbar />
-      {
-        productsList.map(
-          (product) => (<Card
-            key={ product.id }
-            id={ product.id }
-            name={ product.name }
-            price={ product.price }
-            urlImage={ product.urlImage }
-            quantity={ product.quantity }
-            onClick={ handleClick }
-            onChange={ handleChange }
-          />),
-        )
-      }
-      <Button
-        className="Products__button-cart"
-        id="button-cart"
-        type="button"
-        onClick={ () => navigate('/customer/checkout') }
-        datatestid="customer_products__button-cart"
-        label={
-          <div data-testid="customer_products__checkout-bottom-value">
-            { `Ver Carrinho: R$ ${totalCart}` }
-          </div>
-        }
-        disabled={ totalCart === '0,00' }
-      />
+      <Box>
+        <Stack
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          direction="row"
+          flexWrap="wrap"
+        >
+          {
+            productsList.map(
+              (product) => (
+                <Stack
+                  key={ product.id }
+                  spacing={ 1 }
+                  padding={ 1 }
+                >
+                  <Card
+                    id={ product.id }
+                    name={ product.name }
+                    price={ product.price }
+                    urlImage={ product.urlImage }
+                    quantity={ product.quantity }
+                    onClick={ handleClick }
+                    onChange={ handleChange }
+                  />
+                </Stack>
+              ),
+            )
+          }
+        </Stack>
+      </Box>
+      <Box
+        display="flex"
+        justifyContent="flex-end"
+        alignItems="flex-end"
+        marginBottom={ 2 }
+        marginRight={ 2 }
+      >
+        <Fab
+          color="success"
+          aria-label="cart"
+          variant="extended"
+          disabled={ totalCart === '0,00' }
+          datatestid="customer_products__button-cart"
+          onClick={ () => navigate('/customer/checkout') }
+        >
+          <ShoppingCartCheckoutIcon sx={ { mr: 1 } } />
+          { `Ver Carrinho: R$ ${totalCart}` }
+        </Fab>
+      </Box>
     </section>
   );
 };
