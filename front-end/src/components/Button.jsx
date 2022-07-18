@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 const ButtonElement = ({
   className,
   variant,
+  size,
+  color,
   id,
   type,
   onClick,
@@ -15,6 +17,8 @@ const ButtonElement = ({
   <Button
     className={ className }
     variant={ variant }
+    size={ size }
+    color={ color }
     id={ id || className }
     type={ type === 'submit' ? 'submit' : 'button' }
     onClick={ onClick }
@@ -28,6 +32,8 @@ const ButtonElement = ({
 ButtonElement.propTypes = {
   className: PropTypes.string.isRequired,
   variant: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   datatestid: PropTypes.string.isRequired,
