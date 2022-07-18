@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import Input from '../components/Input';
 import { requestLogin } from '../services/request';
@@ -10,6 +9,7 @@ import Button from '../components/Button';
 import DeliveryContext from '../context/DeliveryContext';
 import { ValidateEmail, ValidatePassword } from '../utils';
 import delivery from '../images/delivery-logo.gif';
+import nameApp from '../images/delivery-name.png';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -74,7 +74,13 @@ const Login = () => {
         spacing={ 2 }
         padding={ 2 }
       >
-        <img src={ delivery } alt="logo" />
+        <Stack
+          spacing={ 0 }
+          alignItems="center"
+        >
+          <img src={ delivery } width="200px" alt="logo" />
+          <img src={ nameApp } width="220px" alt="delivery app" />
+        </Stack>
         <Stack
           width="100%"
         >
@@ -96,7 +102,7 @@ const Login = () => {
           <Input
             className="form__input"
             variant="outlined"
-            label="E-mail"
+            label="Senha"
             type="password"
             id="password"
             value={ userPassword }
