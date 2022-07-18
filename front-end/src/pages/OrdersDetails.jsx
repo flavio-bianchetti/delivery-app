@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { Box, Stack, Grid, Typography } from '@mui/material';
 import Navbar from '../components/Navbar';
 import { requestData, updateData } from '../services/request';
 import TableDetails from '../components/TableDetails';
 import DeliveryContext from '../context/DeliveryContext';
+import Button from '../components/Button';
 
 const OrdersDetails = () => {
   const {
@@ -46,90 +48,189 @@ const OrdersDetails = () => {
     }
   };
 
+  const detailsBar = () => (
+    <Grid
+      container
+      direction="row"
+      paddingBottom={ 2 }
+      spacing={ 1 }
+    >
+      <Grid
+        item
+        xs={ 2 }
+        data-testid={
+          `${userRole}_order_details__element-order-details-label-order-id`
+        }
+      >
+        <Stack
+          color="white"
+          backgroundColor="green"
+          borderRadius={ 1 }
+          width="100%"
+          height="100%"
+          alignItems="center"
+          justifyContent="center"
+        >
+          { `Pedido nº ${userOrder.id}` }
+        </Stack>
+      </Grid>
+      {
+        userRole === 'customer' && (
+          <Grid
+            item
+            xs={ 2 }
+            data-testid={
+              `${userRole}_order_details__element-order-details-label-seller-name`
+            }
+          >
+            <Stack
+              color="white"
+              backgroundColor="green"
+              borderRadius={ 1 }
+              width="100%"
+              height="100%"
+              alignItems="center"
+              justifyContent="center"
+            >
+
+              { `Vend.: ${sellerName}` }
+            </Stack>
+          </Grid>
+        )
+      }
+      <Grid
+        item
+        xs={ 2 }
+        data-testid={
+          `${userRole}_order_details__element-order-details-label-order-date`
+        }
+      >
+        <Stack
+          color="white"
+          backgroundColor="green"
+          borderRadius={ 1 }
+          width="100%"
+          height="100%"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {
+            `${new Date(`${userOrder.saleDate}`).toLocaleDateString(
+              'pt-BR',
+            )}`
+          }
+        </Stack>
+      </Grid>
+      <Grid
+        item
+        xs={ 2 }
+        data-testid={
+          `${userRole}_order_details__element-order-details-label-delivery-status`
+        }
+      >
+        <Stack
+          color="white"
+          backgroundColor="red"
+          borderRadius={ 1 }
+          width="100%"
+          height="100%"
+          alignItems="center"
+          justifyContent="center"
+        >
+          { `Separação: ${orderStatus}` }
+        </Stack>
+      </Grid>
+      {
+        userRole === 'customer'
+          ? (
+            <Grid
+              item
+              xs={ 4 }
+            >
+              <Button
+                className="btn-finalizar"
+                type="button"
+                variant="contained"
+                label="MARCAR COMO ENTREGUE"
+                data-testid="customer_order_details__button-delivery-check"
+                onClick={ () => true }
+                disabled
+              />
+            </Grid>
+          )
+          : (
+            <Grid
+              item
+              xs={ 4 }
+            >
+              <Button
+                className="btn-finalizar"
+                type="button"
+                variant="contained"
+                id="Preparando"
+                label="PREPARAR PEDIDO"
+                data-testid="seller_order_details__button-preparing-check"
+                onClick={ (event) => handleClick(event) }
+                disabled={ orderStatus !== 'Pendente' }
+              />
+              <Button
+                className="btn-finalizar"
+                type="button"
+                variant="contained"
+                id="Em Trânsito"
+                label="SAIU PARA ENTREGA"
+                data-testid="seller_order_details__button-dispatch-check"
+                onClick={ (event) => handleClick(event) }
+                disabled={ orderStatus !== 'Preparando' }
+              />
+            </Grid>
+          )
+      }
+    </Grid>
+  );
+
   return (
     <section>
       <Navbar />
-      <div>
-        <div>
-          <div
-            data-testid={
-              `${userRole}_order_details__element-order-details-label-order-id`
-            }
+      <Typography
+        color="green"
+        variant="h4"
+        component="div"
+        align="center"
+        spacing={ 1 }
+      >
+        Detalhes do Pedido
+      </Typography>
+      <Box
+        display="flex"
+        component="div"
+        padding={ 2 }
+      >
+        <Stack
+          sx={ { width: '100%' } }
+          direction="column"
+          paddingBottom={ 2 }
+        >
+          { detailsBar() }
+          <TableDetails products={ saleProducts } userRole={ userRole } />
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            alignItems="flex-end"
           >
-            { `Pedido ${userOrder.id}` }
-          </div>
-          {
-            userRole === 'customer' && (
-              <div
-                data-testid={
-                  `${userRole}_order_details__element-order-details-label-seller-name`
-                }
-              >
-                { `P.Vend: ${sellerName}` }
-              </div>
-            )
-          }
-          <div
-            data-testid={
-              `${userRole}_order_details__element-order-details-label-order-date`
-            }
-          >
-            {
-              `${new Date(`${userOrder.saleDate}`).toLocaleDateString(
-                'pt-BR',
-              )}`
-            }
-          </div>
-          <div
-            data-testid={
-              `${userRole}_order_details__element-order-details-label-delivery-status`
-            }
-          >
-            { orderStatus }
-          </div>
-          {
-            userRole === 'customer'
-              ? (
-                <button
-                  type="button"
-                  disabled
-                  data-testid="customer_order_details__button-delivery-check"
-                >
-                  MARCAR COMO ENTREGUE
-                </button>
-              )
-              : (
-                <div>
-                  <button
-                    type="button"
-                    id="Preparando"
-                    disabled={ orderStatus !== 'Pendente' }
-                    onClick={ (event) => handleClick(event) }
-                    data-testid="seller_order_details__button-preparing-check"
-                  >
-                    PREPARAR PEDIDO
-                  </button>
-                  <button
-                    type="button"
-                    id="Em Trânsito"
-                    disabled={ orderStatus !== 'Preparando' }
-                    onClick={ (event) => handleClick(event) }
-                    data-testid="seller_order_details__button-dispatch-check"
-                  >
-                    SAIU PARA ENTREGA
-                  </button>
-                </div>
-              )
-          }
-        </div>
-        <TableDetails products={ saleProducts } userRole={ userRole } />
-        <div>
-          <span>Total: R$ </span>
-          <span data-testid={ `${userRole}_order_details__element-order-total-price` }>
-            {totalPrice.replace('.', ',')}
-          </span>
-        </div>
-      </div>
+            <Grid
+              data-testid={ `${userRole}_order_details__element-order-total-price` }
+              backgroundColor="green"
+              color="white"
+              padding={ 2 }
+              paddingLeft={ 4 }
+              paddingRight={ 4 }
+            >
+              { `Total: R$ ${totalPrice.replace('.', ',')}` }
+            </Grid>
+          </Box>
+        </Stack>
+      </Box>
     </section>
   );
 };
