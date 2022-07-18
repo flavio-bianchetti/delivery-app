@@ -1,4 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
+import {
+  Box, Typography, Table, TableBody, TableHead, TableRow, styled,
+  IconButton, Grid,
+} from '@mui/material';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import DeleteIcon from '@mui/icons-material/Delete';
 import DeliveryContext from '../context/DeliveryContext';
 
 const TABLE_CHECKOUT = [
@@ -10,7 +16,7 @@ const TABLE_CHECKOUT = [
   'Remover Item',
 ];
 
-function Table() {
+function TableElement() {
   const [cart, setCart] = useState([]);
 
   const {
@@ -25,10 +31,10 @@ function Table() {
   }, [productsList]);
 
   function handleClick(e) {
-    const { id } = e.target;
+    const { name } = e.currentTarget;
     const newList = productsList
       .map((product) => {
-        if (product.id === Number(id)) {
+        if (product.id === Number(name)) {
           return {
             ...product,
             quantity: 0,
@@ -40,85 +46,143 @@ function Table() {
     setProductsList(newList);
   }
 
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+      fontSize: 16,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
+
   return (
-    <>
-      <h2>Finalizar Pedido</h2>
-      <table>
-        <thead>
-          <tr>
+    <Box
+      padding={ 2 }
+    >
+      <Typography
+        color="green"
+        variant="h4"
+        component="div"
+        align="center"
+        paddingBottom={ 1 }
+      >
+        Finalizar Pedido
+      </Typography>
+      <Table
+        sx={ { minWidth: 700 } }
+        aria-label="customized table"
+      >
+        <TableHead>
+          <TableRow>
             {
               TABLE_CHECKOUT.map((head) => (
-                <th key={ Math.random() }>{head}</th>
+                <StyledTableCell
+                  align="center"
+                  key={ Math.random() }
+                >
+                  {head}
+                </StyledTableCell>
               ))
             }
-          </tr>
-        </thead>
-        <tbody>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {
             cart.map((product, index) => {
               const { name, price, quantity, subTotal, id } = product;
 
               return (
-                <tr key={ index }>
-                  <td
+                <StyledTableRow key={ index }>
+                  <TableCell
+                    align="center"
                     data-testid={
                       `customer_checkout__element-order-table-item-number-${index}`
                     }
                   >
                     {index + 1}
-                  </td>
-                  <td
+                  </TableCell>
+                  <TableCell
+                    align="center"
                     data-testid={
                       `customer_checkout__element-order-table-name-${index}`
                     }
                   >
                     {name}
-                  </td>
-                  <td
+                  </TableCell>
+                  <TableCell
+                    align="center"
                     data-testid={
                       `customer_checkout__element-order-table-quantity-${index}`
                     }
                   >
                     {quantity}
-                  </td>
-                  <td
+                  </TableCell>
+                  <TableCell
+                    align="center"
                     data-testid={
                       `customer_checkout__element-order-table-unit-price-${index}`
                     }
                   >
-                    {price.replace('.', ',')}
-                  </td>
-                  <td
+                    {`R$ ${price.replace('.', ',')}`}
+                  </TableCell>
+                  <TableCell
+                    align="center"
                     data-testid={
                       `customer_checkout__element-order-table-sub-total-${index}`
                     }
                   >
-                    {subTotal}
-                  </td>
-                  <td
+                    {`R$ ${subTotal}`}
+                  </TableCell>
+                  <TableCell
+                    align="center"
                     data-testid={
                       `customer_checkout__element-order-table-remove-${index}`
                     }
                   >
-                    <button
-                      type="button"
-                      id={ id }
+                    <IconButton
+                      color="error"
+                      aria-label="delete"
+                      name={ id }
                       onClick={ (e) => handleClick(e) }
                     >
-                      Remover
-                    </button>
-                  </td>
-                </tr>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </StyledTableRow>
               );
             })
           }
-        </tbody>
-      </table>
-      <div data-testid="customer_checkout__element-order-total-price">
-        {`Total: R$ ${totalCart}`}
-      </div>
-    </>
+        </TableBody>
+      </Table>
+      <Box
+        display="flex"
+        justifyContent="flex-end"
+        alignItems="flex-end"
+      >
+        <Grid
+          data-testid="customer_checkout__element-order-total-price"
+          backgroundColor="green"
+          color="white"
+          padding={ 2 }
+          paddingLeft={ 4 }
+          paddingRight={ 4 }
+        >
+          { `Total: R$ ${totalCart}` }
+        </Grid>
+      </Box>
+    </Box>
   );
 }
 
-export default Table;
+export default TableElement;

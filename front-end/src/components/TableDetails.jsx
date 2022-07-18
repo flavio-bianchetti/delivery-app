@@ -1,68 +1,119 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Box, Table, TableHead, TableRow, styled,
+} from '@mui/material';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
-const TableDetails = ({ products, userRole }) => (
-  <section>
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          products.map((product, index) => {
-            const { name, price, SalesProduct } = product;
-            const { quantity } = SalesProduct;
-            return (
-              <tr key={ index }>
-                <td
-                  data-testid={
-                    `${userRole}_order_details__element-order-table-item-number-${index}`
-                  }
-                >
-                  {index + 1}
-                </td>
-                <td
-                  data-testid={
-                    `${userRole}_order_details__element-order-table-name-${index}`
-                  }
-                >
-                  {name}
-                </td>
-                <td
-                  data-testid={
-                    `${userRole}_order_details__element-order-table-quantity-${index}`
-                  }
-                >
-                  {quantity}
-                </td>
-                <td
-                  data-testid={
-                    `${userRole}_order_details__element-order-table-unit-price-${index}`
-                  }
-                >
-                  {price.replace('.', ',')}
-                </td>
-                <td
-                  data-testid={
-                    `${userRole}_order_details__element-order-table-sub-total-${index}`
-                  }
-                >
-                  {(Number(price) * quantity).toFixed(2).replace('.', ',')}
-                </td>
-              </tr>
-            );
-          })
-        }
-      </tbody>
-    </table>
-  </section>
-);
+const TableDetails = ({ products, userRole }) => {
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
+
+  return (
+    <Box>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <StyledTableCell
+              align="center"
+            >
+              Item
+            </StyledTableCell>
+            <StyledTableCell
+              align="center"
+            >
+              Descrição
+            </StyledTableCell>
+            <StyledTableCell
+              align="center"
+            >
+              Quantidade
+            </StyledTableCell>
+            <StyledTableCell
+              align="center"
+            >
+              Valor Unitário
+            </StyledTableCell>
+            <StyledTableCell
+              align="center"
+            >
+              Sub-total
+            </StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <tbody>
+          {
+            products.map((product, index) => {
+              const { name, price, SalesProduct } = product;
+              const { quantity } = SalesProduct;
+              return (
+                <StyledTableRow key={ index }>
+                  <TableCell
+                    align="center"
+                    data-testid={
+                      `${userRole}_order_details__
+                      element-order-table-item-number-${index}`
+                    }
+                  >
+                    {index + 1}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    data-testid={
+                      `${userRole}_order_details__element-order-table-name-${index}`
+                    }
+                  >
+                    {name}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    data-testid={
+                      `${userRole}_order_details__element-order-table-quantity-${index}`
+                    }
+                  >
+                    {quantity}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    data-testid={
+                      `${userRole}_order_details__element-order-table-unit-price-${index}`
+                    }
+                  >
+                    {`R$ ${price.replace('.', ',')}`}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    data-testid={
+                      `${userRole}_order_details__element-order-table-sub-total-${index}`
+                    }
+                  >
+                    {`R$ ${(Number(price) * quantity).toFixed(2).replace('.', ',')}`}
+                  </TableCell>
+                </StyledTableRow>
+              );
+            })
+          }
+        </tbody>
+      </Table>
+    </Box>
+  );
+};
 TableDetails.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
