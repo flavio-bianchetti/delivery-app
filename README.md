@@ -20,20 +20,12 @@ You can see the result of this project _[here](https://delivery-app-555.herokuap
 
 <section>
 <a
-    href="https://pt-br.reactjs.org/docs/getting-started.html"
+    href="https://reactjs.org/"
     target="_blank">
     <img
       align="center"
       height="30"
-      src="https://img.shields.io/badge/React-563D7C?style=for-the-badge&logo=react&logoColor=61DAFB"
-    />
-  </a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-    <img
-      align="center"
-      height="30"
-      src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"
-      target="_blank"
+      src="https://img.shields.io/badge/React-2C2D72?style=for-the-badge&logo=react&logoColor=61DAFB"
     />
   </a>
   <a
@@ -43,6 +35,14 @@ You can see the result of this project _[here](https://delivery-app-555.herokuap
       align="center"
       height="30"
       src="https://img.shields.io/badge/MUI-2D8CFF?style=for-the-badge&logo=mui&logoColor=white"
+    />
+  </a>
+  <a href="https://nodejs.org/en/docs/" target="_blank">
+    <img
+      align="center"
+      height="30"
+      src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"
+      target="_blank"
     />
   </a>
   <a href="https://sequelize.org/" target="_blank">
@@ -116,20 +116,12 @@ Você pode ver o resultado deste projeto _[aqui](https://delivery-app-555.heroku
 
 <section>
 <a
-    href="https://pt-br.reactjs.org/docs/getting-started.html"
+    href="https://reactjs.org/"
     target="_blank">
     <img
       align="center"
       height="30"
-      src="https://img.shields.io/badge/React-563D7C?style=for-the-badge&logo=react&logoColor=61DAFB"
-    />
-  </a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-    <img
-      align="center"
-      height="30"
-      src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"
-      target="_blank"
+      src="https://img.shields.io/badge/React-2C2D72?style=for-the-badge&logo=react&logoColor=61DAFB"
     />
   </a>
   <a
@@ -139,6 +131,14 @@ Você pode ver o resultado deste projeto _[aqui](https://delivery-app-555.heroku
       align="center"
       height="30"
       src="https://img.shields.io/badge/MUI-2D8CFF?style=for-the-badge&logo=mui&logoColor=white"
+    />
+  </a>
+  <a href="https://nodejs.org/en/docs/" target="_blank">
+    <img
+      align="center"
+      height="30"
+      src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"
+      target="_blank"
     />
   </a>
   <a href="https://sequelize.org/" target="_blank">
