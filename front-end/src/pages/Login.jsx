@@ -119,6 +119,7 @@ const Login = () => {
             variant="contained"
             id="btn-submit"
             type="submit"
+            color="success"
             onClick={ login }
             datatestid="common_login__button-login"
             label="Login"
@@ -133,6 +134,7 @@ const Login = () => {
             variant="text"
             id="btn-button"
             type="button"
+            color="success"
             onClick={ () => navigate('/register') }
             datatestid="common_login__button-register"
             label="Ainda não tenho conta"

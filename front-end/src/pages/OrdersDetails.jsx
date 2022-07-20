@@ -192,15 +192,19 @@ const OrdersDetails = () => {
   return (
     <section>
       <Navbar />
-      <Typography
-        color="green"
-        variant="h4"
-        component="div"
-        align="center"
-        spacing={ 1 }
+      <Stack
+        padding={ 1 }
       >
-        Detalhes do Pedido
-      </Typography>
+        <Typography
+          color="green"
+          variant="h4"
+          component="div"
+          align="center"
+          spacing={ 1 }
+        >
+          Detalhes do Pedido
+        </Typography>
+      </Stack>
       <Box
         display="flex"
         component="div"
