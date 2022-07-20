@@ -166,6 +166,8 @@ function AdressForm() {
     <Box
       component="form"
       autocomplete="on"
+      paddingLeft={ 1 }
+      paddingRight={ 1 }
     >
       <Stack
         display="flex"
@@ -174,11 +176,11 @@ function AdressForm() {
       >
         <Typography
           color="green"
-          variant="h5"
+          variant="h4"
           component="div"
           align="center"
           spacing={ 2 }
-          paddingBottom={ 2 }
+          padding={ 1 }
         >
           Detalhes e Endereço para Entrega
         </Typography>
@@ -187,6 +189,7 @@ function AdressForm() {
           alignItems="center"
         >
           <Button
+            color="success"
             className="btn-finalizar"
             type="button"
             variant="contained"

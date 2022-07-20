@@ -48,7 +48,7 @@ function TableElement() {
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: 'green',
       color: theme.palette.common.white,
       fontSize: 16,
     },
@@ -57,9 +57,10 @@ function TableElement() {
     },
   }));
 
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  const StyledTableRow = styled(TableRow)(() => ({
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
+      backgroundColor: '#e1e1e1',
+      // backgroundColor: theme.palette.action.hover,
     },
     '&:last-child td, &:last-child th': {
       border: 0,
@@ -75,7 +76,8 @@ function TableElement() {
         variant="h4"
         component="div"
         align="center"
-        paddingBottom={ 1 }
+        padding={ 1 }
+        borderRadius={ 2 }
       >
         Finalizar Pedido
       </Typography>

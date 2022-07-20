@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
+import { makeStyles } from '@material-ui/styles';
 
 const Input = ({
   className,
@@ -15,6 +16,7 @@ const Input = ({
   placeholder,
 }) => (
   <TextField
+    color="success"
     className={ className }
     variant={ variant }
     size={ size || 'normal' }

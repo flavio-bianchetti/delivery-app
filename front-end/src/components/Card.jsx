@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import Input from './Input';
+import TextField from '@mui/material/TextField';
 
 const Card = ({
   id,
@@ -36,14 +36,15 @@ const Card = ({
       >
         <RemoveCircleIcon />
       </IconButton>
-      <Input
+      <TextField
         className="card__input"
+        inputProps={ { min: 0, style: { textAlign: 'center' } } }
         variant="outlined"
         size="small"
         type="text"
         value={ quantity }
         onChange={ onChange }
-        datatestid={ `customer_products__input-card-quantity-${id}` }
+        data-testid={ `customer_products__input-card-quantity-${id}` }
       />
       <IconButton
         aria-label="add"

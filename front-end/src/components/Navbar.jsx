@@ -27,6 +27,7 @@ const Navbar = () => {
           className="navbar__btn-products"
           variant="contained"
           type="button"
+          color="success"
           onClick={ () => navigate('/customer/products') }
           datatestid="customer_products__element-navbar-link-products"
           label="Produtos"
@@ -48,6 +49,7 @@ const Navbar = () => {
           className="navbar__btn-orders"
           variant="contained"
           type="button"
+          color="success"
           onClick={ () => navigate('/customer/orders') }
           datatestid="customer_products__element-navbar-link-orders"
           label="Meus Pedidos"
@@ -69,6 +71,7 @@ const Navbar = () => {
           className="navbar__btn-logout"
           variant="contained"
           type="button"
+          color="success"
           onClick={ () => {
             setIsLogout(true);
             navigate('/');
@@ -97,7 +100,7 @@ const Navbar = () => {
         variant="h5"
         component="div"
         paddingLeft={ 2 }
-        color="blue"
+        color="green"
       >
         { userName }
       </Typography>
@@ -110,7 +113,9 @@ const Navbar = () => {
       component="form"
       autocomplete="on"
       spacing={ 1 }
-      padding={ 1 }
+      paddingLeft={ 1 }
+      paddingTop={ 1 }
+      paddingRight={ 1 }
     >
       <Stack
         sx={ { width: '100%' } }

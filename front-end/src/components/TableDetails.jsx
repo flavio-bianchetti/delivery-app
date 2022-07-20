@@ -8,17 +8,19 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 const TableDetails = ({ products, userRole }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: 'green',
       color: theme.palette.common.white,
+      fontSize: 16,
     },
     [`&.${tableCellClasses.body}`]: {
       fontSize: 14,
     },
   }));
 
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  const StyledTableRow = styled(TableRow)(() => ({
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
+      backgroundColor: '#e1e1e1',
+      // backgroundColor: theme.palette.action.hover,
     },
     '&:last-child td, &:last-child th': {
       border: 0,
